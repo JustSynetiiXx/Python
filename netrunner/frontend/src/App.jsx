@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { isLoggedIn } from './utils/api';
 import useGame from './hooks/useGame';
 import Login from './components/Login';
@@ -15,30 +15,38 @@ import MapView from './components/MapView';
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
   const [hintMsg, setHintMsg] = useState(null);
-  const [storyDone, setStoryDone] = useState(false);
+  const scrollAreaRef = useRef(null);
 
   const game = useGame();
   const {
     player, mission, currentChallenge, output, submitResult,
-    loading, xpAnim, sidebarOpen, sidebarView,
+    loading, xpAnim, storyPhase, sidebarOpen, sidebarView,
     editorRef, loadSession, runCode, submitCode, getHint,
-    openSidebar, closeSidebar,
+    finishStoryIntro, openSidebar, closeSidebar,
   } = game;
+
+  const isPlaying = storyPhase === 'play';
 
   const handleLogin = useCallback(() => {
     setLoggedIn(true);
     loadSession();
   }, [loadSession]);
 
-  const handleKeybarKey = useCallback((key) => {
-    if (key === 'run') {
-      const code = editorRef.current?.getCode?.() || '';
-      submitCode(code);
-    } else {
-      editorRef.current?.insertText?.(key);
-    }
+  // ── PythonKeybar handlers ──
+  const handleKeyInsert = useCallback((char) => {
+    editorRef.current?.insertText?.(char);
+  }, [editorRef]);
+
+  const handleKeyPair = useCallback((open, close) => {
+    editorRef.current?.insertPaired?.(open, close);
+  }, [editorRef]);
+
+  const handleKeyRun = useCallback(() => {
+    const code = editorRef.current?.getCode?.() || '';
+    if (code.trim()) submitCode(code);
   }, [editorRef, submitCode]);
 
+  // ── Hints ──
   const handleHint = useCallback(async () => {
     const hint = await getHint();
     if (hint) {
@@ -46,11 +54,21 @@ export default function App() {
     }
   }, [getHint]);
 
-  const handleStoryComplete = useCallback(() => {
-    setStoryDone(true);
+  // Clear hint on new challenge
+  useEffect(() => {
     setHintMsg(null);
-  }, []);
+  }, [currentChallenge?.id]);
 
+  // Auto-scroll to terminal when story finishes
+  useEffect(() => {
+    if (isPlaying && scrollAreaRef.current) {
+      setTimeout(() => {
+        scrollAreaRef.current?.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
+      }, 100);
+    }
+  }, [isPlaying]);
+
+  // ── Login screen ──
   if (!loggedIn) {
     return (
       <div className="scanlines">
@@ -59,14 +77,13 @@ export default function App() {
     );
   }
 
-  // Determine story lines to show
-  const storyLines = (!storyDone && mission?.story_intro)
-    ? mission.story_intro
-    : (submitResult?.mission_complete && mission?.story_complete)
-      ? mission.story_complete
-      : null;
+  // ── Determine what story text to show ──
+  const storyLines =
+    storyPhase === 'intro' ? mission?.story_intro :
+    storyPhase === 'complete' ? mission?.story_complete :
+    null;
 
-  // ECHO dialogue after submit
+  // ── ECHO dialogue (success/fail/hint feedback) ──
   const echoMsg = submitResult
     ? (submitResult.success ? currentChallenge?.echo_success : currentChallenge?.echo_fail)
     : hintMsg;
@@ -74,30 +91,68 @@ export default function App() {
     ? (submitResult.success ? 'success' : 'error')
     : 'hint';
 
+  // ── Challenge progress indicator ──
+  const challengeCount = mission?.challenges?.length || 0;
+  const challengeNum = game.challengeIndex + 1;
+
   return (
     <div className="scanlines flex flex-col h-[100dvh] relative">
-      {/* HUD */}
+      {/* ── HUD ── */}
       <HUD player={player} onMenuClick={() => openSidebar('character')} />
 
-      {/* Main content - scrollable area between HUD and Keybar */}
-      <div className="flex-1 overflow-y-auto px-2 py-2 space-y-2">
-        {/* Story Panel */}
+      {/* ── Main scrollable content ── */}
+      <div ref={scrollAreaRef} className="flex-1 overflow-y-auto px-2 py-2 space-y-2">
+
+        {/* Story Panel (intro or complete) */}
         {storyLines && (
-          <StoryPanel lines={storyLines} onComplete={handleStoryComplete} />
+          <StoryPanel
+            lines={storyLines}
+            onComplete={storyPhase === 'intro' ? finishStoryIntro : undefined}
+          />
+        )}
+
+        {/* Challenge progress bar */}
+        {isPlaying && challengeCount > 1 && (
+          <div className="flex items-center gap-2 px-1">
+            <span
+              className="text-[10px] tracking-wider"
+              style={{ fontFamily: 'var(--font-hud)', color: 'var(--text-dim)' }}
+            >
+              {challengeNum}/{challengeCount}
+            </span>
+            <div className="flex gap-1 flex-1">
+              {mission.challenges.map((ch, i) => (
+                <div
+                  key={ch.id}
+                  className="h-1 flex-1 rounded-full"
+                  style={{
+                    background:
+                      ch.progress?.completed ? 'var(--success)' :
+                      i === game.challengeIndex ? 'var(--cyan)' :
+                      '#ffffff15',
+                    boxShadow:
+                      ch.progress?.completed ? '0 0 4px #00ff8844' :
+                      i === game.challengeIndex ? '0 0 4px #00fff244' :
+                      'none',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Mission Brief */}
-        {storyDone && currentChallenge && (
+        {isPlaying && currentChallenge && (
           <MissionBrief challenge={currentChallenge} />
         )}
 
-        {/* ECHO Dialogue */}
-        {echoMsg && (
+        {/* ECHO Dialogue (hint / success / error feedback) */}
+        {isPlaying && echoMsg && (
           <Dialogue message={echoMsg} type={echoType} />
         )}
 
         {/* Terminal (Editor + Output) */}
-        {storyDone && (
+        {isPlaying && (
           <Terminal
             starterCode={currentChallenge?.starter_code || ''}
             output={output}
@@ -110,44 +165,47 @@ export default function App() {
         )}
 
         {/* Hint button */}
-        {storyDone && currentChallenge && !submitResult?.success && (
-          <div className="flex justify-center">
+        {isPlaying && currentChallenge && !submitResult?.success && (
+          <div className="flex justify-center pb-2">
             <button
               onClick={handleHint}
-              className="text-xs px-4 py-2 rounded"
+              className="text-xs px-5 py-2.5 rounded"
               style={{
-                background: '#ffffff08',
+                background: '#ffffff06',
                 color: 'var(--text-dim)',
                 fontFamily: 'var(--font-code)',
                 border: '1px solid #ffffff10',
               }}
             >
-              HINT anfordern
+              {'\u2139'} HINT
             </button>
           </div>
         )}
       </div>
 
-      {/* Python Keybar - fixed at bottom */}
-      {storyDone && (
-        <PythonKeybar onKey={handleKeybarKey} />
+      {/* ── Python Keybar (fixed at bottom) ── */}
+      {isPlaying && (
+        <PythonKeybar
+          onKey={handleKeyInsert}
+          onPair={handleKeyPair}
+          onRun={handleKeyRun}
+        />
       )}
 
-      {/* XP Float Animation */}
+      {/* ── XP Float Animation ── */}
       {xpAnim && (
-        <div className="xp-float glow-magenta text-lg right-4 top-12">
+        <div className="xp-float glow-magenta text-lg right-4 top-14">
           +{xpAnim.xp} XP
         </div>
       )}
 
-      {/* Sidebar Overlay */}
+      {/* ── Sidebar Overlay ── */}
       {sidebarOpen && (
         <div className="sidebar-overlay" onClick={closeSidebar} />
       )}
 
-      {/* Sidebar */}
+      {/* ── Sidebar ── */}
       <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        {/* Sidebar nav tabs */}
         <div
           className="flex"
           style={{ borderBottom: '1px solid var(--panel-border)' }}
@@ -174,7 +232,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* Sidebar content */}
         {sidebarView === 'character' && <CharacterPanel player={player} />}
         {sidebarView === 'inventory' && <Inventory />}
         {sidebarView === 'map' && <MapView />}

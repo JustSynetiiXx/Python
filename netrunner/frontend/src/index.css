@@ -138,22 +138,15 @@ body {
 .btn-run:active { background: #00ff8815; }
 
 /* ── CodeMirror overrides ── */
-.cm-editor {
-  font-family: var(--font-code) !important;
-  font-size: 15px !important;
-  background: #0d0d18 !important;
-  height: 100%;
+.cm-editor { height: 100%; }
+.cm-editor .cm-tooltip { background: var(--panel) !important; border-color: var(--panel-border) !important; }
+.cm-editor .cm-tooltip-autocomplete ul li { color: var(--text) !important; }
+.cm-editor .cm-tooltip-autocomplete ul li[aria-selected] { background: #00fff215 !important; color: var(--cyan) !important; }
+.cm-editor .cm-foldPlaceholder { background: #ffffff08 !important; border-color: #ffffff15 !important; color: var(--text-dim) !important; }
+/* Prevent iOS zoom on input focus */
+@supports (-webkit-touch-callout: none) {
+  .cm-editor .cm-content { font-size: 16px !important; }
 }
-.cm-editor .cm-content { padding: 8px 4px !important; caret-color: var(--cyan) !important; }
-.cm-editor .cm-gutters {
-  background: #0d0d18 !important;
-  border-right: 1px solid #ffffff10 !important;
-  color: var(--text-dim) !important;
-}
-.cm-editor .cm-activeLine { background: #ffffff06 !important; }
-.cm-editor .cm-selectionBackground,
-.cm-editor .cm-focused .cm-selectionBackground { background: #00fff220 !important; }
-.cm-editor .cm-cursor { border-left-color: var(--cyan) !important; }
 
 /* ── Python keybar ── */
 .keybar-btn {
@@ -174,6 +167,8 @@ body {
   user-select: none;
 }
 .keybar-btn:active { background: #00fff215; }
+/* Hide scrollbar on keybar but keep scrolling */
+.keybar-scroll::-webkit-scrollbar { display: none; }
 
 /* ── Sidebar ── */
 .sidebar-overlay {
