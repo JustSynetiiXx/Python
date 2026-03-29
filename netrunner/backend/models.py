@@ -1,7 +1,7 @@
 """Data models / helpers for NETRUNNER."""
 
 from __future__ import annotations
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date
 
 
@@ -14,6 +14,12 @@ TITLES = {
     (24, 30): "Daemon Lord",
 }
 
+MAX_NEW_CHALLENGES_PER_DAY = 5
+RECOVERY_CHALLENGE_COUNT = 3
+HP_LOSS_PER_FAIL = 10
+HP_GAIN_ON_SUCCESS = 20
+HP_MAX = 100
+
 
 def title_for_level(level: int) -> str:
     for (lo, hi), title in TITLES.items():
@@ -24,6 +30,15 @@ def title_for_level(level: int) -> str:
 
 def xp_needed_for_level(level: int) -> int:
     return level * 200
+
+
+def compute_stats(level: int) -> dict:
+    """Compute LOGIC, MEMORY, STEALTH from level."""
+    return {
+        "logic": 1 + (level - 1) // 3,
+        "memory": 1 + (level - 1) // 4,
+        "stealth": 1 + (level - 1) // 5,
+    }
 
 
 @dataclass
@@ -40,6 +55,12 @@ class Player:
     current_mission: str = "0.1"
     streak: int = 0
     last_active_date: str | None = None
+    recovery_mode: int = 0
+    recovery_remaining: int = 0
+    challenges_today: int = 0
+    challenges_today_date: str | None = None
+    total_challenges_completed: int = 0
+    total_xp_earned: int = 0
 
     @property
     def title(self) -> str:
@@ -50,14 +71,30 @@ class Player:
         return xp_needed_for_level(self.level)
 
     @property
+    def in_recovery(self) -> bool:
+        return bool(self.recovery_mode)
+
+    @property
     def max_attempts_before_hp_loss(self) -> int:
-        """STEALTH stat gives more attempts before HP loss (base 3)."""
+        """STEALTH stat: more attempts before HP loss. Base = 3 (index 0,1,2 free)."""
         return 2 + self.stat_stealth
 
     @property
     def max_hints(self) -> int:
-        """LOGIC stat gives access to more hints (base 3)."""
+        """LOGIC stat: access to more hints. Base 2, max 3."""
         return min(3, 1 + self.stat_logic)
+
+    @property
+    def memory_bonus(self) -> float:
+        """MEMORY stat: multiplier for spaced-rep interval growth. Higher = faster mastery."""
+        return 1.0 + (self.stat_memory - 1) * 0.15
+
+    @property
+    def reached_daily_cap(self) -> bool:
+        """Check if player hit the daily new-challenge cap."""
+        if self.challenges_today_date != date.today().isoformat():
+            return False  # New day, counter resets
+        return self.challenges_today >= MAX_NEW_CHALLENGES_PER_DAY
 
     def to_dict(self) -> dict:
         return {
@@ -75,6 +112,11 @@ class Player:
             "current_chapter": self.current_chapter,
             "current_mission": self.current_mission,
             "streak": self.streak,
+            "recovery_mode": self.in_recovery,
+            "recovery_remaining": self.recovery_remaining,
+            "challenges_today": self.challenges_today,
+            "daily_cap": MAX_NEW_CHALLENGES_PER_DAY,
+            "total_challenges": self.total_challenges_completed,
         }
 
 

@@ -19,6 +19,12 @@ CREATE TABLE IF NOT EXISTS player (
     current_mission TEXT NOT NULL DEFAULT '0.1',
     streak INTEGER NOT NULL DEFAULT 0,
     last_active_date TEXT,
+    recovery_mode INTEGER NOT NULL DEFAULT 0,
+    recovery_remaining INTEGER NOT NULL DEFAULT 0,
+    challenges_today INTEGER NOT NULL DEFAULT 0,
+    challenges_today_date TEXT,
+    total_challenges_completed INTEGER NOT NULL DEFAULT 0,
+    total_xp_earned INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -57,7 +63,28 @@ CREATE TABLE IF NOT EXISTS unlocked_districts (
     name TEXT NOT NULL,
     unlocked_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+CREATE TABLE IF NOT EXISTS daily_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    log_date TEXT NOT NULL,
+    challenges_completed INTEGER NOT NULL DEFAULT 0,
+    xp_earned INTEGER NOT NULL DEFAULT 0,
+    reviews_completed INTEGER NOT NULL DEFAULT 0,
+    streak_day INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(log_date)
+);
 """
+
+MIGRATIONS = [
+    # Add columns that may be missing from older databases
+    "ALTER TABLE player ADD COLUMN recovery_mode INTEGER NOT NULL DEFAULT 0",
+    "ALTER TABLE player ADD COLUMN recovery_remaining INTEGER NOT NULL DEFAULT 0",
+    "ALTER TABLE player ADD COLUMN challenges_today INTEGER NOT NULL DEFAULT 0",
+    "ALTER TABLE player ADD COLUMN challenges_today_date TEXT",
+    "ALTER TABLE player ADD COLUMN total_challenges_completed INTEGER NOT NULL DEFAULT 0",
+    "ALTER TABLE player ADD COLUMN total_xp_earned INTEGER NOT NULL DEFAULT 0",
+]
 
 
 async def get_db() -> aiosqlite.Connection:
@@ -73,6 +100,13 @@ async def init_db():
     db = await get_db()
     try:
         await db.executescript(SCHEMA)
+
+        # Run migrations (ignore errors for already-existing columns)
+        for migration in MIGRATIONS:
+            try:
+                await db.execute(migration)
+            except Exception:
+                pass
 
         # Seed default player if not exists
         cursor = await db.execute("SELECT COUNT(*) FROM player")

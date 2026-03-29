@@ -13,20 +13,25 @@ from database import init_db
 from game_engine import (
     add_inventory_item,
     advance_mission,
-    apply_hp_change,
     award_xp,
-    check_system_crash,
     complete_challenge,
+    complete_recovery_challenge,
+    damage_hp,
     get_challenge_progress,
     get_current_session,
     get_inventory,
     get_map_data,
     get_mission,
     get_player,
+    get_recovery_challenges,
     get_streak_bonus,
+    heal_hp,
+    increment_daily_challenges,
+    load_story,
+    log_daily_activity,
     record_attempt,
     record_hint_used,
-    recover_from_crash,
+    unlock_district,
     update_player,
     update_streak,
     validate_output,
@@ -75,6 +80,11 @@ class SubmitRequest(BaseModel):
 
 class SetHandleRequest(BaseModel):
     handle: str
+
+
+class ReviewSubmitRequest(BaseModel):
+    code: str
+    quality: int = 3  # SM-2 quality rating 0-5
 
 
 # ---------------------------------------------------------------------------
@@ -157,8 +167,6 @@ async def submit_challenge(
     _: str = Depends(verify_token),
 ):
     # Find the challenge in story data
-    from game_engine import load_story
-
     story = load_story()
     challenge = None
     mission_data = None
@@ -189,8 +197,7 @@ async def submit_challenge(
     attempts = await record_attempt(challenge_id, req.code)
 
     # Validate
-    challenge["_submitted_code"] = req.code
-    success = validate_output(challenge, result["output"])
+    success = validate_output(challenge, result["output"], req.code)
 
     player = await get_player()
 
@@ -198,17 +205,24 @@ async def submit_challenge(
         # Mark complete
         await complete_challenge(challenge_id, req.code)
 
+        # Track daily challenges + streak
+        await increment_daily_challenges()
+        streak = await update_streak(challenge_completed=True)
+
         # Award XP
         xp_amount = challenge.get("xp", 50)
         streak_bonus = await get_streak_bonus()
         xp_result = await award_xp(xp_amount + streak_bonus)
 
         # Heal HP
-        new_hp = await apply_hp_change(20)
+        new_hp = await heal_hp()
 
         # Add to spaced repetition
         concept = challenge.get("concept", challenge_id)
         await add_card(challenge_id, concept)
+
+        # Log daily activity
+        await log_daily_activity(xp=xp_amount + streak_bonus)
 
         # Add inventory item if mission reward
         reward = challenge.get("reward")
@@ -240,6 +254,7 @@ async def submit_challenge(
             "output": result["output"],
             "xp_gained": xp_amount + streak_bonus,
             "streak_bonus": streak_bonus,
+            "streak": streak,
             "level_up": xp_result.get("leveled_up", False),
             "new_level": xp_result.get("new_level"),
             "new_title": xp_result.get("new_title"),
@@ -260,16 +275,129 @@ async def submit_challenge(
         # HP loss after too many attempts (based on STEALTH stat)
         max_free = player.max_attempts_before_hp_loss
         if attempts >= max_free:
-            new_hp = await apply_hp_change(-10)
-            response["hp"] = new_hp
+            hp_result = await damage_hp()
+            response["hp"] = hp_result["hp"]
             response["hp_lost"] = 10
 
-            if await check_system_crash():
+            if hp_result["crashed"]:
                 response["system_crash"] = True
-                await recover_from_crash()
-                response["hp"] = 100
 
         return response
+
+
+# ---------------------------------------------------------------------------
+# Recovery challenge submission
+# ---------------------------------------------------------------------------
+
+@app.post("/api/submit/recovery/{challenge_id}")
+async def submit_recovery(
+    challenge_id: str,
+    req: SubmitRequest,
+    _: str = Depends(verify_token),
+):
+    # Find recovery challenge
+    recovery_challenges = get_recovery_challenges()
+    challenge = None
+    for ch in recovery_challenges:
+        if ch["id"] == challenge_id:
+            challenge = ch
+            break
+
+    # Also check the full RECOVERY_CHALLENGES list
+    if not challenge:
+        from game_engine import RECOVERY_CHALLENGES
+        for ch in RECOVERY_CHALLENGES:
+            if ch["id"] == challenge_id:
+                challenge = ch
+                break
+
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Recovery-Challenge nicht gefunden")
+
+    # Execute code
+    result = execute_code(req.code, challenge.get("stdin_input", ""))
+
+    # Validate
+    success = validate_output(challenge, result["output"], req.code)
+
+    if success:
+        recovery_result = await complete_recovery_challenge()
+        return {
+            "success": True,
+            "output": result["output"],
+            "recovery_complete": recovery_result["recovery_complete"],
+            "recovery_remaining": recovery_result["remaining"],
+            "echo_success": challenge.get("echo_success", ""),
+        }
+    else:
+        return {
+            "success": False,
+            "output": result["output"],
+            "error": result.get("error", ""),
+            "echo_fail": challenge.get("echo_fail", ""),
+        }
+
+
+# ---------------------------------------------------------------------------
+# Review submission (Spaced Repetition)
+# ---------------------------------------------------------------------------
+
+@app.post("/api/submit/review/{challenge_id}")
+async def submit_review(
+    challenge_id: str,
+    req: ReviewSubmitRequest,
+    _: str = Depends(verify_token),
+):
+    # Find the original challenge
+    story = load_story()
+    challenge = None
+    for chapter in story.get("chapters", []):
+        for mission in chapter.get("missions", []):
+            for ch in mission.get("challenges", []):
+                if ch["id"] == challenge_id:
+                    challenge = ch
+                    break
+
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge nicht gefunden")
+
+    # Execute code
+    result = execute_code(req.code, challenge.get("stdin_input", ""))
+
+    # Validate
+    success = validate_output(challenge, result["output"], req.code)
+
+    player = await get_player()
+
+    # Determine quality for SM-2 (auto-rate based on success)
+    quality = req.quality if success else min(req.quality, 2)
+
+    # Update spaced rep with MEMORY stat bonus
+    await update_sm2(challenge_id, quality, memory_bonus=player.memory_bonus)
+
+    # Log as review
+    await log_daily_activity(xp=0, is_review=True)
+
+    if success:
+        # Small XP reward for reviews
+        xp_amount = 10
+        xp_result = await award_xp(xp_amount)
+
+        return {
+            "success": True,
+            "output": result["output"],
+            "is_review": True,
+            "xp_gained": xp_amount,
+            "quality": quality,
+        }
+    else:
+        return {
+            "success": False,
+            "output": result["output"],
+            "error": result.get("error", ""),
+            "is_review": True,
+            "quality": quality,
+        }
 
 
 # ---------------------------------------------------------------------------
@@ -278,8 +406,6 @@ async def submit_challenge(
 
 @app.post("/api/hint/{challenge_id}")
 async def get_hint(challenge_id: str, _: str = Depends(verify_token)):
-    from game_engine import load_story
-
     story = load_story()
     challenge = None
     for chapter in story.get("chapters", []):

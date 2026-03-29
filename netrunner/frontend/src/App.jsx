@@ -23,9 +23,26 @@ export default function App() {
     loading, xpAnim, storyPhase, sidebarOpen, sidebarView,
     editorRef, loadSession, runCode, submitCode, getHint,
     finishStoryIntro, openSidebar, closeSidebar,
+    // Recovery & review
+    sessionMode, currentRecovery, submitRecoveryCode,
+    reviewChallenges, currentReview, submitReviewCode,
+    systemCrash, recoveryIndex, recoveryChallenges,
   } = game;
 
   const isPlaying = storyPhase === 'play';
+  const isRecovery = sessionMode === 'recovery';
+  const isReviewsOnly = sessionMode === 'reviews_only';
+  const isDailyCap = sessionMode === 'daily_cap';
+
+  // Active challenge depends on mode
+  const activeChallenge = isRecovery ? currentRecovery
+    : isReviewsOnly ? currentReview
+    : currentChallenge;
+
+  // Active submit function depends on mode
+  const activeSubmit = isRecovery ? submitRecoveryCode
+    : isReviewsOnly ? submitReviewCode
+    : submitCode;
 
   const handleLogin = useCallback(() => {
     setLoggedIn(true);
@@ -43,8 +60,8 @@ export default function App() {
 
   const handleKeyRun = useCallback(() => {
     const code = editorRef.current?.getCode?.() || '';
-    if (code.trim()) submitCode(code);
-  }, [editorRef, submitCode]);
+    if (code.trim()) activeSubmit(code);
+  }, [editorRef, activeSubmit]);
 
   // ── Hints ──
   const handleHint = useCallback(async () => {
@@ -57,7 +74,7 @@ export default function App() {
   // Clear hint on new challenge
   useEffect(() => {
     setHintMsg(null);
-  }, [currentChallenge?.id]);
+  }, [currentChallenge?.id, currentRecovery?.id, currentReview?.id]);
 
   // Auto-scroll to terminal when story finishes
   useEffect(() => {
@@ -83,9 +100,11 @@ export default function App() {
     storyPhase === 'complete' ? mission?.story_complete :
     null;
 
-  // ── ECHO dialogue (success/fail/hint feedback) ──
+  // ── ECHO dialogue (hint / success / error feedback) ──
   const echoMsg = submitResult
-    ? (submitResult.success ? currentChallenge?.echo_success : currentChallenge?.echo_fail)
+    ? (submitResult.success
+        ? (submitResult.echo_success || activeChallenge?.echo_success)
+        : (submitResult.echo_fail || activeChallenge?.echo_fail))
     : hintMsg;
   const echoType = submitResult
     ? (submitResult.success ? 'success' : 'error')
@@ -100,19 +119,140 @@ export default function App() {
       {/* ── HUD ── */}
       <HUD player={player} onMenuClick={() => openSidebar('character')} />
 
+      {/* ── System Crash Overlay ── */}
+      {systemCrash && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center"
+          style={{ background: 'rgba(255, 0, 64, 0.15)' }}
+        >
+          <div className="text-center glitch">
+            <div
+              className="glow-red text-3xl mb-4"
+              style={{ fontFamily: 'var(--font-hud)' }}
+            >
+              SYSTEM CRASH
+            </div>
+            <div className="text-sm" style={{ color: 'var(--text-dim)' }}>
+              Notfall-Reboot wird eingeleitet...
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Main scrollable content ── */}
       <div ref={scrollAreaRef} className="flex-1 overflow-y-auto px-2 py-2 space-y-2">
 
-        {/* Story Panel (intro or complete) */}
-        {storyLines && (
+        {/* Story Panel (intro or complete) — normal mode only */}
+        {!isRecovery && !isReviewsOnly && !isDailyCap && storyLines && (
           <StoryPanel
             lines={storyLines}
             onComplete={storyPhase === 'intro' ? finishStoryIntro : undefined}
           />
         )}
 
-        {/* Challenge progress bar */}
-        {isPlaying && challengeCount > 1 && (
+        {/* ── Recovery Mode UI ── */}
+        {isRecovery && isPlaying && (
+          <>
+            <div className="panel p-3">
+              <div
+                className="glow-red text-sm mb-2"
+                style={{ fontFamily: 'var(--font-hud)', letterSpacing: '0.1em' }}
+              >
+                ⚠ SYSTEM RECOVERY
+              </div>
+              <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
+                Dein System ist abgestürzt. Löse {recoveryChallenges.length} einfache Aufgaben,
+                um wieder online zu kommen.
+              </p>
+              <div className="flex gap-1 mt-2">
+                {recoveryChallenges.map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-1.5 flex-1 rounded-full"
+                    style={{
+                      background: i < recoveryIndex ? 'var(--success)' :
+                        i === recoveryIndex ? 'var(--red)' : '#ffffff15',
+                      boxShadow: i < recoveryIndex ? '0 0 4px #00ff8844' :
+                        i === recoveryIndex ? '0 0 4px #ff004044' : 'none',
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {currentRecovery && (
+              <MissionBrief challenge={currentRecovery} />
+            )}
+          </>
+        )}
+
+        {/* ── Reviews Only Mode UI ── */}
+        {isReviewsOnly && isPlaying && (
+          <>
+            <div className="panel p-3">
+              <div
+                className="glow-magenta text-sm mb-2"
+                style={{ fontFamily: 'var(--font-hud)', letterSpacing: '0.1em' }}
+              >
+                INTRUSION ALERT
+              </div>
+              <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
+                Du hast dein Tageslimit erreicht. Verteidige dein System gegen alte Bedrohungen!
+              </p>
+              {currentReview?.intrusion_alert && (
+                <p className="text-xs mt-2 glow-magenta">
+                  {currentReview.intrusion_alert}
+                </p>
+              )}
+              <div className="flex gap-1 mt-2">
+                {reviewChallenges.map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-1.5 flex-1 rounded-full"
+                    style={{
+                      background: i < game.reviewIndex ? 'var(--success)' :
+                        i === game.reviewIndex ? 'var(--magenta)' : '#ffffff15',
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {currentReview && (
+              <MissionBrief challenge={currentReview} />
+            )}
+          </>
+        )}
+
+        {/* ── Daily Cap Message ── */}
+        {isDailyCap && isPlaying && (
+          <div className="panel p-4 text-center">
+            <div
+              className="glow-cyan text-sm mb-3"
+              style={{ fontFamily: 'var(--font-hud)', letterSpacing: '0.1em' }}
+            >
+              TAGESLIMIT ERREICHT
+            </div>
+            <p className="text-xs mb-2" style={{ color: 'var(--text-dim)' }}>
+              Du hast heute {player?.daily_cap || 5} Challenges abgeschlossen.
+              Komm morgen wieder für neue Missionen!
+            </p>
+            <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
+              Tipp: Dein Fortschritt wird gespeichert. Jeder Tag zählt für deinen Streak!
+            </p>
+            <div className="mt-3">
+              <span
+                className="glow-success text-lg"
+                style={{ fontFamily: 'var(--font-hud)' }}
+              >
+                🔥 {player?.streak || 0} Tage Streak
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Challenge progress bar — normal mode */}
+        {!isRecovery && !isReviewsOnly && !isDailyCap && isPlaying && challengeCount > 1 && (
           <div className="flex items-center gap-2 px-1">
             <span
               className="text-[10px] tracking-wider"
@@ -141,31 +281,43 @@ export default function App() {
           </div>
         )}
 
-        {/* Mission Brief */}
-        {isPlaying && currentChallenge && (
+        {/* Mission Brief — normal mode */}
+        {!isRecovery && !isReviewsOnly && !isDailyCap && isPlaying && currentChallenge && (
           <MissionBrief challenge={currentChallenge} />
         )}
 
+        {/* Intrusion Alert banner before a review in normal mode */}
+        {!isRecovery && !isReviewsOnly && !isDailyCap && isPlaying && currentReview && reviewChallenges.length > 0 && (
+          <div className="panel p-2 text-center">
+            <span
+              className="glow-magenta text-xs"
+              style={{ fontFamily: 'var(--font-hud)', letterSpacing: '0.05em' }}
+            >
+              {reviewChallenges.length} Review{reviewChallenges.length > 1 ? 's' : ''} ausstehend
+            </span>
+          </div>
+        )}
+
         {/* ECHO Dialogue (hint / success / error feedback) */}
-        {isPlaying && echoMsg && (
+        {isPlaying && !isDailyCap && echoMsg && (
           <Dialogue message={echoMsg} type={echoType} />
         )}
 
         {/* Terminal (Editor + Output) */}
-        {isPlaying && (
+        {isPlaying && !isDailyCap && activeChallenge && (
           <Terminal
-            starterCode={currentChallenge?.starter_code || ''}
+            starterCode={activeChallenge?.starter_code || ''}
             output={output}
             submitResult={submitResult}
             loading={loading}
             onRun={runCode}
-            onSubmit={submitCode}
+            onSubmit={(code) => activeSubmit(code)}
             editorRef={editorRef}
           />
         )}
 
-        {/* Hint button */}
-        {isPlaying && currentChallenge && !submitResult?.success && (
+        {/* Hint button — normal mode only */}
+        {!isRecovery && !isReviewsOnly && isPlaying && currentChallenge && !submitResult?.success && (
           <div className="flex justify-center pb-2">
             <button
               onClick={handleHint}
@@ -184,7 +336,7 @@ export default function App() {
       </div>
 
       {/* ── Python Keybar (fixed at bottom) ── */}
-      {isPlaying && (
+      {isPlaying && !isDailyCap && activeChallenge && (
         <PythonKeybar
           onKey={handleKeyInsert}
           onPair={handleKeyPair}

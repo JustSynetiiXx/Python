@@ -48,6 +48,8 @@ export const api = {
   getMission: (id) => request('GET', `/mission/${id}`),
   runCode: (code, stdin = '') => request('POST', '/run', { code, stdin }),
   submit: (id, code) => request('POST', `/submit/${id}`, { code }),
+  submitRecovery: (id, code) => request('POST', `/submit/recovery/${id}`, { code }),
+  submitReview: (id, code, quality = 3) => request('POST', `/submit/review/${id}`, { code, quality }),
   getHint: (id) => request('POST', `/hint/${id}`),
   getMap: () => request('GET', '/map'),
   getInventory: () => request('GET', '/inventory'),

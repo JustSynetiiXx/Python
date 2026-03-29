@@ -1,4 +1,7 @@
-"""SM-2 Spaced Repetition algorithm for NETRUNNER."""
+"""SM-2 Spaced Repetition algorithm for NETRUNNER.
+
+MEMORY stat integration: higher MEMORY → faster interval growth → fewer reviews needed.
+"""
 
 from __future__ import annotations
 
@@ -23,12 +26,13 @@ async def add_card(challenge_id: str, concept: str):
         await db.close()
 
 
-async def update_sm2(challenge_id: str, quality: int):
+async def update_sm2(challenge_id: str, quality: int, memory_bonus: float = 1.0):
     """Update a card using the SM-2 algorithm.
 
     Args:
         challenge_id: The challenge to update
         quality: 0-5 rating (0-2 = incorrect, 3-5 = correct)
+        memory_bonus: Player's MEMORY stat multiplier (1.0 = base, higher = faster mastery)
     """
     db = await get_db()
     try:
@@ -49,7 +53,8 @@ async def update_sm2(challenge_id: str, quality: int):
             elif repetitions == 1:
                 interval = 3
             else:
-                interval = round(interval * ease_factor)
+                # MEMORY stat: multiply interval growth for faster mastery
+                interval = round(interval * ease_factor * memory_bonus)
             repetitions += 1
         else:  # Incorrect
             repetitions = 0

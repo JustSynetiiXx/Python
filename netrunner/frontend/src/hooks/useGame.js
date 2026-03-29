@@ -14,13 +14,52 @@ export default function useGame() {
   const [storyPhase, setStoryPhase] = useState('intro'); // 'intro' | 'play' | 'complete'
   const editorRef = useRef(null);
 
+  // Recovery & review state
+  const [sessionMode, setSessionMode] = useState('normal'); // 'normal' | 'recovery' | 'reviews_only' | 'daily_cap'
+  const [recoveryChallenges, setRecoveryChallenges] = useState([]);
+  const [recoveryIndex, setRecoveryIndex] = useState(0);
+  const [reviewChallenges, setReviewChallenges] = useState([]);
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const [systemCrash, setSystemCrash] = useState(false);
+
   const currentChallenge = mission?.challenges?.[challengeIndex] || null;
+  const currentRecovery = recoveryChallenges[recoveryIndex] || null;
+  const currentReview = reviewChallenges[reviewIndex] || null;
 
   // Load session on mount
   const loadSession = useCallback(async () => {
     try {
       const session = await api.getSession();
       setPlayer(session.player);
+      setSessionMode(session.mode);
+
+      if (session.mode === 'recovery') {
+        setRecoveryChallenges(session.recovery_challenges || []);
+        setRecoveryIndex(0);
+        setMission(null);
+        setStoryPhase('play');
+        return;
+      }
+
+      // Store review challenges
+      if (session.review_challenges?.length > 0) {
+        setReviewChallenges(session.review_challenges);
+        setReviewIndex(0);
+      }
+
+      if (session.mode === 'reviews_only') {
+        setMission(null);
+        setStoryPhase('play');
+        return;
+      }
+
+      if (session.mode === 'daily_cap') {
+        setMission(null);
+        setStoryPhase('play');
+        return;
+      }
+
+      // Normal mode
       if (session.current_mission) {
         setMission(session.current_mission);
         const challenges = session.current_mission.challenges || [];
@@ -116,6 +155,14 @@ export default function useGame() {
         if (result.hp !== undefined) {
           setPlayer(prev => prev ? { ...prev, hp: result.hp } : prev);
         }
+        // System crash → switch to recovery
+        if (result.system_crash) {
+          setSystemCrash(true);
+          setTimeout(async () => {
+            setSystemCrash(false);
+            await loadSession(); // Reload session in recovery mode
+          }, 3000);
+        }
       }
 
       return result;
@@ -124,7 +171,90 @@ export default function useGame() {
     } finally {
       setLoading(false);
     }
-  }, [currentChallenge, mission, challengeIndex]);
+  }, [currentChallenge, mission, challengeIndex, loadSession]);
+
+  // Submit recovery challenge
+  const submitRecoveryCode = useCallback(async (code) => {
+    if (!currentRecovery || !code.trim()) return;
+    setLoading(true);
+    setSubmitResult(null);
+    try {
+      const result = await api.submitRecovery(currentRecovery.id, code);
+      setOutput({
+        output: result.output || '',
+        error: result.error || '',
+        success: result.success,
+      });
+      setSubmitResult(result);
+
+      if (result.success) {
+        if (result.recovery_complete) {
+          // Recovery done — reload normal session
+          setTimeout(async () => {
+            setOutput(null);
+            setSubmitResult(null);
+            await loadSession();
+          }, 2000);
+        } else {
+          // Next recovery challenge
+          setTimeout(() => {
+            setRecoveryIndex(prev => prev + 1);
+            setOutput(null);
+            setSubmitResult(null);
+          }, 1500);
+        }
+      }
+
+      return result;
+    } catch (e) {
+      setOutput({ output: '', error: e.message, success: false });
+    } finally {
+      setLoading(false);
+    }
+  }, [currentRecovery, loadSession]);
+
+  // Submit review challenge
+  const submitReviewCode = useCallback(async (code) => {
+    if (!currentReview || !code.trim()) return;
+    setLoading(true);
+    setSubmitResult(null);
+    try {
+      const quality = 3; // Auto-rate as "correct" if success
+      const result = await api.submitReview(currentReview.id, code, quality);
+      setOutput({
+        output: result.output || '',
+        error: result.error || '',
+        success: result.success,
+      });
+      setSubmitResult(result);
+
+      if (result.success) {
+        if (result.xp_gained) {
+          setXpAnim({ xp: result.xp_gained, streak: 0 });
+          setTimeout(() => setXpAnim(null), 1500);
+        }
+        // Move to next review
+        setTimeout(() => {
+          if (reviewIndex + 1 < reviewChallenges.length) {
+            setReviewIndex(prev => prev + 1);
+            setOutput(null);
+            setSubmitResult(null);
+          } else {
+            // All reviews done — reload session
+            setOutput(null);
+            setSubmitResult(null);
+            loadSession();
+          }
+        }, 1500);
+      }
+
+      return result;
+    } catch (e) {
+      setOutput({ output: '', error: e.message, success: false });
+    } finally {
+      setLoading(false);
+    }
+  }, [currentReview, reviewIndex, reviewChallenges.length, loadSession]);
 
   // Get hint
   const getHint = useCallback(async () => {
@@ -172,5 +302,16 @@ export default function useGame() {
     openSidebar,
     closeSidebar,
     setPlayer,
+    // Recovery & review
+    sessionMode,
+    recoveryChallenges,
+    recoveryIndex,
+    currentRecovery,
+    submitRecoveryCode,
+    reviewChallenges,
+    reviewIndex,
+    currentReview,
+    submitReviewCode,
+    systemCrash,
   };
 }
