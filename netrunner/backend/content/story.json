@@ -11,27 +11,25 @@
           "id": "0.1",
           "title": "Erstes Signal",
           "story_intro": [
-            "ECHO: Kannst du mich lesen? Gut. Hör zu.",
-            "ECHO: Du warst mal einer der Besten. Netrunner. Top-Tier.",
-            "ECHO: Aber jemand hat dich gelöscht. Dein Gedächtnis. Dein Wissen. Alles.",
-            "ECHO: Ich bin ECHO. Ich kenne dich von früher.",
-            "ECHO: Ich bringe dir alles zurück. Aber du musst mir vertrauen.",
-            "ECHO: Siehst du das Terminal vor dir? Das ist deine Waffe. Dein Werkzeug. Dein Zugang zum Netz.",
-            "ECHO: Code ist eine Sprache, die Maschinen verstehen. Python ist eine davon. Elegant. Mächtig. Alles was du brauchst.",
-            "ECHO: Fangen wir an. Mit dem print-Befehl sendest du eine Nachricht ins Netz. Alles was du sagen willst, kommt in Klammern und Anführungszeichen.",
-            "ECHO: Tippe genau das hier ein:"
+            "...",
+            "...",
+            "Signal eingehend.",
+            "Hey. Du lebst noch. Gut.",
+            "Ich bin ECHO. Wir haben keine Zeit für lange Erklärungen.",
+            "Dein Deck ist online — aber du weißt noch nicht, wie man es benutzt.",
+            "Das ändern wir jetzt.",
+            "Die einzige Sprache, die das System versteht, ist Code.",
+            "Und alles beginnt mit einem einzigen Befehl: print().",
+            "print() ist deine Stimme im Netz. Alles, was du ihm gibst, sendet es hinaus.",
+            "Schreib etwas. Zeig dem System, dass du da bist."
           ],
           "story_complete": [
-            "ECHO: Da bist du ja. Das Signal ist durchgekommen.",
-            "ECHO: Ich wusste, dass du es noch drauf hast.",
-            "ECHO: ...Ich meine — ich wusste, dass du es schnell lernst.",
-            "ECHO: Weiter. Wir haben viel vor."
+            "Das System hat dein Signal empfangen.",
+            "Schwach — aber vorhanden.",
+            "Ich habe dich gefunden, weil du genau das geschrieben hast.",
+            "Merkwürdig, dass du immer noch weißt, wie das geht.",
+            "... Vergiss es. Weiter."
           ],
-          "reward": {
-            "item_id": "signal_sender_v1",
-            "name": "Signal Sender v1.0",
-            "description": "Dein erstes Programm. Es hat funktioniert."
-          },
           "challenges": [
             {
               "id": "0.1.1",
@@ -40,17 +38,17 @@
               "difficulty": "easy",
               "xp": 50,
               "title": "Erstes Signal senden",
-              "description": "ECHO: Der print-Befehl sendet eine Nachricht ins Netz. Was in den Klammern steht, wird gesendet. Text muss in Anführungszeichen stehen. Tippe genau das hier ein:\n\nprint(\"Ich bin noch da\")",
+              "description": "Das Netz ist still. Kein Signal, kein Leben — bis du sprichst.\n\nDer Befehl print() ist deine Stimme. Alles in den Klammern wird als Ausgabe ins System gesendet. Text muss in Anführungszeichen stehen — das sind die Grenzen deiner Nachricht.\n\nSchreib exakt:\n\nprint(\"Ich bin noch da\")",
               "expected_output": "Ich bin noch da",
               "starter_code": "",
               "solution": "print(\"Ich bin noch da\")",
               "hints": [
-                "Nutze den print() Befehl — er sendet Text ins Netz.",
-                "Schreibe den Text in Anführungszeichen innerhalb der Klammern: print(\"...\")",
-                "Die Lösung ist: print(\"Ich bin noch da\")"
+                "Der Befehl beginnt mit print — alles klein, direkt gefolgt von einer runden Klammer.",
+                "Text in print() muss in Anführungszeichen: print(\"dein Text hier\").",
+                "Fast da: print(\"Ich bin noch da\") — Groß- und Kleinschreibung muss exakt stimmen."
               ],
-              "echo_success": "ECHO: Signal empfangen. Du bist noch da. Gut.",
-              "echo_fail": "ECHO: Da stimmt was nicht. Check die Klammern und Anführungszeichen."
+              "echo_success": "Signal empfangen. Das System hört dich.",
+              "echo_fail": "Kein Signal. Überprüf die Anführungszeichen und den Befehlsnamen."
             },
             {
               "id": "0.1.2",
@@ -58,61 +56,66 @@
               "concept": "print_basic",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Antwort an ECHO",
-              "description": "ECHO: Gut. Jetzt antworte mir. Sende diese Nachricht:\n\nprint(\"ECHO, ich höre dich\")",
+              "title": "ECHO kontaktieren",
+              "description": "Gut. Du weißt, dass print() funktioniert.\n\nJetzt sende eine direkte Nachricht an mich. Das System leitet alles weiter, was du ausgibst.\n\nSchreib:\n\nprint(\"ECHO, ich höre dich\")",
               "expected_output": "ECHO, ich höre dich",
               "starter_code": "",
               "solution": "print(\"ECHO, ich höre dich\")",
               "hints": [
-                "Gleiche Technik wie vorher — print() mit Text in Anführungszeichen.",
-                "Achte auf die genaue Schreibweise: print(\"ECHO, ich höre dich\")",
-                "Die Lösung ist: print(\"ECHO, ich höre dich\")"
+                "Du kennst print() — benutze ihn genau wie beim letzten Mal.",
+                "Vergiss das Komma im Text nicht: \"ECHO, ich höre dich\"",
+                "Exakt: print(\"ECHO, ich höre dich\") — jedes Zeichen zählt."
               ],
-              "echo_success": "ECHO: Laut und deutlich. Die Verbindung steht.",
-              "echo_fail": "ECHO: Nochmal. Achte auf jedes Zeichen. Jeder Buchstabe zählt im Netz."
+              "echo_success": "Empfangen. Lautstärke steigt. Du gewöhnst dich daran.",
+              "echo_fail": "Falsche Frequenz. Der Text muss exakt stimmen — auch das Komma."
             },
             {
               "id": "0.1.3",
               "type": "regex_output",
-              "concept": "print_creative",
+              "concept": "print_basic",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Eigene Nachricht",
-              "description": "ECHO: Jetzt du. Sende deine eigene Nachricht ins Netz. Egal was — Hauptsache, du sendest etwas. Nutze print() und schreib deinen eigenen Text rein.",
+              "title": "Eigene Stimme finden",
+              "description": "Jetzt bist du dran.\n\nSende deine eigene Nachricht ins Netz. Irgendetwas — solange du print() benutzt und irgendetwas ausgibst. Das System muss dein Signal registrieren.\n\nSchreib einen print()-Befehl mit einem Text deiner Wahl.",
               "expected_output": ".+",
               "starter_code": "print(\"\")",
-              "solution": "print(\"Hallo Netz\")",
+              "solution": "print(\"Ich bin online\")",
               "hints": [
-                "Schreibe irgendeinen Text zwischen die Anführungszeichen in print().",
-                "Zum Beispiel: print(\"Hallo Welt\") — aber du kannst schreiben was du willst.",
-                "Schreibe: print(\"Hallo Netz\") oder jeden anderen Text."
+                "Benutze print() — und schreib irgendeinen Text zwischen die Anführungszeichen.",
+                "So zum Beispiel: print(\"Hallo Netz\") — dein Text, deine Wahl.",
+                "Stell sicher, dass du nicht nichts ausgibst: print(\"irgendwas\") funktioniert."
               ],
-              "echo_success": "ECHO: Eigene Worte. Eigene Stimme. Das gefällt mir.",
-              "echo_fail": "ECHO: Da kam nichts an. Schreib irgendwas zwischen die Anführungszeichen."
+              "echo_success": "Deine Stimme. Klar und eindeutig. Ich erkenne sie.",
+              "echo_fail": "Leeres Signal bringt nichts. Schreib irgendetwas in die Anführungszeichen."
             }
-          ]
+          ],
+          "reward": {
+            "item_id": "signal_sender_v1",
+            "name": "Signal Sender v1.0",
+            "description": "Dein erstes Programm. Es hat funktioniert."
+          }
         },
         {
           "id": "0.2",
           "title": "System Diagnostics",
           "story_intro": [
-            "ECHO: Dein Deck kann mehr als Nachrichten senden.",
-            "ECHO: Es kann rechnen. Schneller als jeder Mensch.",
-            "ECHO: Im Netz brauchst du das ständig — Daten analysieren, Verschlüsselungen knacken, Muster erkennen.",
-            "ECHO: Python kann rechnen. Plus, Minus, Mal, Geteilt — die Grundrechenarten.",
-            "ECHO: Und das Beste: Bei Zahlen brauchst du KEINE Anführungszeichen. Zahlen sind Zahlen, kein Text.",
-            "ECHO: Teste dein System."
+            "Signal stabil. Gut.",
+            "Aber ein Netrunner, der nur schreien kann, ist nutzlos.",
+            "Dein Deck hat einen eingebauten Prozessor. Der kann rechnen.",
+            "Jede Sekunde im Netz kostet Ressourcen — Credits, Energie, Zeit.",
+            "Du musst wissen, wie dein System zählt.",
+            "Python versteht Mathematik — direkt im print()-Befehl.",
+            "Kein Taschenrechner. Kein Umweg. Einfach rechnen.",
+            "Fang an."
           ],
           "story_complete": [
-            "ECHO: Alle Systeme laufen. Recheneinheit ist online.",
-            "ECHO: Du weißt jetzt, wie dein Deck rechnet. Das ist mächtiger als du denkst.",
-            "ECHO: Weiter. Dein Deck braucht eine Identität."
+            "Diagnostik abgeschlossen.",
+            "Dein Prozessor antwortet korrekt.",
+            "Grundoperationen: bestätigt.",
+            "Du wirst das brauchen. Bald.",
+            "Es gibt Systeme im Netz, die mit Zahlen gesichert sind.",
+            "Wenn du nicht rechnen kannst, kommst du nicht rein."
           ],
-          "reward": {
-            "item_id": "calc_module_v1",
-            "name": "Calc Module v1.0",
-            "description": "Grundrechenarten freigeschaltet."
-          },
           "challenges": [
             {
               "id": "0.2.1",
@@ -120,18 +123,18 @@
               "concept": "math_addition",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Addition",
-              "description": "ECHO: Teste die Addition. Das Plus-Zeichen (+) addiert Zahlen. Tippe ein:\n\nprint(2 + 3)",
+              "title": "Addition: 2 + 3",
+              "description": "Python kann direkt rechnen — Zahlen brauchen keine Anführungszeichen.\n\nprint(2 + 3) gibt das Ergebnis aus, nicht den Text '2 + 3'. Der Prozessor rechnet für dich.\n\nSchreib:\n\nprint(2 + 3)",
               "expected_output": "5",
               "starter_code": "",
               "solution": "print(2 + 3)",
               "hints": [
-                "Nutze print() mit einer Rechnung drin — ohne Anführungszeichen bei Zahlen.",
-                "Schreibe: print(2 + 3) — Python rechnet das automatisch aus.",
-                "Die Lösung ist: print(2 + 3)"
+                "Benutze print() — aber diesmal ohne Anführungszeichen um die Zahlen.",
+                "Zahlen und das Plus-Zeichen direkt in die Klammer: print(2 + 3)",
+                "Exakt: print(2 + 3) — Python berechnet das automatisch."
               ],
-              "echo_success": "ECHO: 2 + 3 = 5. Korrekt. Dein Rechner läuft.",
-              "echo_fail": "ECHO: Denk dran — Zahlen brauchen KEINE Anführungszeichen."
+              "echo_success": "5. Korrekt. Dein Prozessor funktioniert.",
+              "echo_fail": "Falsches Ergebnis. Zahlen brauchen keine Anführungszeichen in Python."
             },
             {
               "id": "0.2.2",
@@ -139,18 +142,18 @@
               "concept": "math_subtraction",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Subtraktion",
-              "description": "ECHO: Jetzt Subtraktion. Das Minus-Zeichen (-) zieht ab. Tippe ein:\n\nprint(100 - 42)",
+              "title": "Subtraktion: 100 - 42",
+              "description": "Subtraktion im Netz — das Minus-Zeichen macht genau das, was du denkst.\n\nprint(100 - 42) berechnet die Differenz und gibt sie aus.\n\nSchreib:\n\nprint(100 - 42)",
               "expected_output": "58",
               "starter_code": "",
               "solution": "print(100 - 42)",
               "hints": [
-                "Gleiche Technik: print() mit der Rechnung drin.",
-                "Schreibe: print(100 - 42)",
-                "Die Lösung ist: print(100 - 42)"
+                "Gleiche Struktur wie Addition — aber mit dem Minus-Zeichen.",
+                "print(100 - 42) — Python rechnet das direkt.",
+                "Das Ergebnis ist 58. Schreib: print(100 - 42)"
               ],
-              "echo_success": "ECHO: 100 - 42 = 58. Sauber.",
-              "echo_fail": "ECHO: Check die Zahlen. 100 minus 42."
+              "echo_success": "58. Das reicht für eine Nacht im Netz.",
+              "echo_fail": "Falsch. 100 minus 42 — benutze das Minus-Zeichen direkt."
             },
             {
               "id": "0.2.3",
@@ -158,18 +161,18 @@
               "concept": "math_multiplication",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Multiplikation",
-              "description": "ECHO: Multiplikation. In Python nutzt du den Stern (*) zum Multiplizieren — nicht das x. Tippe ein:\n\nprint(7 * 8)",
+              "title": "Multiplikation: 7 * 8",
+              "description": "Im Netz wird mit dem Sternchen multipliziert: *\n\nNicht 'x' wie in der Schule — der Prozessor versteht nur *.\n\nSchreib:\n\nprint(7 * 8)",
               "expected_output": "56",
               "starter_code": "",
               "solution": "print(7 * 8)",
               "hints": [
-                "Das Mal-Zeichen in Python ist * (Stern), nicht x.",
-                "Schreibe: print(7 * 8)",
-                "Die Lösung ist: print(7 * 8)"
+                "Das Mal-Zeichen in Python ist das Sternchen: *",
+                "print(7 * 8) — das Sternchen steht für Multiplikation.",
+                "Das Ergebnis ist 56. Schreib: print(7 * 8)"
               ],
-              "echo_success": "ECHO: 7 * 8 = 56. Der Stern ist dein Multiplikator.",
-              "echo_fail": "ECHO: Nutze den Stern * zum Multiplizieren, nicht x."
+              "echo_success": "56. Multiplikation verstanden. Der Prozessor läuft heiß.",
+              "echo_fail": "Falsch. Multiplikation in Python ist das Sternchen: *"
             },
             {
               "id": "0.2.4",
@@ -177,62 +180,66 @@
               "concept": "math_division",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Division",
-              "description": "ECHO: Division. Der Schrägstrich (/) teilt Zahlen. Achtung — Python gibt dir bei Division immer eine Kommazahl zurück. Tippe ein:\n\nprint(10 / 2)",
+              "title": "Division: 10 / 2",
+              "description": "Division mit dem Schrägstrich: /\n\nAchtung: Python gibt bei Division immer eine Dezimalzahl aus — auch wenn das Ergebnis glatt ist. 10 / 2 ergibt 5.0, nicht 5.\n\nSchreib:\n\nprint(10 / 2)",
               "expected_output": "5.0",
               "starter_code": "",
               "solution": "print(10 / 2)",
               "hints": [
-                "Nutze den Schrägstrich / zum Teilen.",
-                "Schreibe: print(10 / 2) — das Ergebnis wird 5.0 sein (Kommazahl).",
-                "Die Lösung ist: print(10 / 2)"
+                "Division mit dem Schrägstrich: /",
+                "print(10 / 2) — aber das Ergebnis ist eine Dezimalzahl.",
+                "Python gibt 5.0 aus, nicht 5. Das ist normal bei Division."
               ],
-              "echo_success": "ECHO: 10 / 2 = 5.0. Ja, die Null hinterm Komma ist normal bei Division.",
-              "echo_fail": "ECHO: Division nutzt den Schrägstrich /. Und keine Anführungszeichen bei Zahlen."
+              "echo_success": "5.0. Der Punkt gehört dazu. Python ist präzise.",
+              "echo_fail": "Denk an den Dezimalpunkt. Python gibt bei Division immer 5.0, nicht 5."
             },
             {
               "id": "0.2.5",
               "type": "regex_output",
-              "concept": "math_creative",
+              "concept": "math_free",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Eigene Rechnung",
-              "description": "ECHO: Jetzt du. Ich geb dir eine Aufgabe: Was ist 15 * 4? Schreib den print-Befehl selbst.",
-              "expected_output": "^60(\\.0)?$",
-              "starter_code": "",
-              "solution": "print(15 * 4)",
+              "title": "Eigene Berechnung",
+              "description": "Du kennst jetzt +, -, * und /.\n\nBerechne irgendetwas — deine eigene Rechnung. Das Ergebnis muss eine Zahl sein.\n\nSchreib einen print()-Befehl mit einer Rechenoperation deiner Wahl.",
+              "expected_output": "-?[0-9]+(\\.[0-9]+)?",
+              "starter_code": "print()",
+              "solution": "print(3 + 7)",
               "hints": [
-                "Du musst 15 mal 4 rechnen lassen. Nutze print() und den Stern *.",
-                "Schreibe: print(15 * 4)",
-                "Die Lösung ist: print(15 * 4)"
+                "Benutze print() mit einer Rechenoperation: +, -, * oder /",
+                "Zum Beispiel: print(5 + 5) oder print(20 - 3)",
+                "Stell sicher, dass das Ergebnis eine Zahl ist — print(2 + 2) gibt 4 aus."
               ],
-              "echo_success": "ECHO: 60. Richtig. Du rechnest schon wie eine Maschine.",
-              "echo_fail": "ECHO: 15 mal 4. Nutze print(15 * 4)."
+              "echo_success": "Berechnung bestätigt. Du hast Kontrolle über den Prozessor.",
+              "echo_fail": "Das Ergebnis muss eine Zahl sein. Benutze +, -, * oder / zwischen zwei Zahlen."
             }
-          ]
+          ],
+          "reward": {
+            "item_id": "calc_module_v1",
+            "name": "Calc Module v1.0",
+            "description": "Grundrechenarten freigeschaltet."
+          }
         },
         {
           "id": "0.3",
           "title": "Deck benennen",
           "story_intro": [
-            "ECHO: Dein Deck braucht einen Namen. Jedes Netrunner-Deck hat eine Identität.",
-            "ECHO: Dafür nutzen wir eine Variable. Stell dir eine Schublade vor:",
-            "ECHO: Du klebst ein Etikett drauf — das ist der Variablenname.",
-            "ECHO: Und du legst was rein — das ist der Wert.",
-            "ECHO: Das Gleichheitszeichen = bedeutet: 'Speichere diesen Wert unter diesem Namen.'",
-            "ECHO: Variable = Name + Wert. So einfach ist das.",
-            "ECHO: Und mit print() kannst du jederzeit nachschauen, was in der Schublade liegt."
+            "Wir müssen reden.",
+            "Im Netz bist du nicht du. Du bist dein Deck.",
+            "Und dein Deck braucht einen Namen.",
+            "In Python heißen benannte Speicherplätze 'Variablen'.",
+            "Stell dir vor: ein Schubfach mit einem Etikett. Du steckst etwas rein — und kannst es jederzeit wieder rausholen.",
+            "deck_name = \"Shadow\" legt den Wert 'Shadow' im Schubfach 'deck_name' ab.",
+            "print(deck_name) holt ihn wieder raus — ohne Anführungszeichen, weil das kein Text ist. Das ist ein Name.",
+            "Gib deinem Deck eine Identität."
           ],
           "story_complete": [
-            "ECHO: Dein Deck hat jetzt einen Namen. Und einen Versionszähler.",
-            "ECHO: Variablen sind das Gedächtnis deines Decks. Ohne sie vergisst es alles.",
-            "ECHO: ...So wie du. Aber das ändern wir."
+            "Dein Deck hat einen Namen.",
+            "Ich sehe es jetzt im System.",
+            "...",
+            "Den Namen kenne ich.",
+            "Woher weißt du, dass du das verwenden sollst?",
+            "Vergiss es. Weiter. Wir haben keine Zeit für Fragen."
           ],
-          "reward": {
-            "item_id": "memory_chip_v1",
-            "name": "Memory Chip v1.0",
-            "description": "Variablen-Speicher aktiviert."
-          },
           "challenges": [
             {
               "id": "0.3.1",
@@ -240,197 +247,238 @@
               "concept": "variables_string",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Deck-Name speichern",
-              "description": "ECHO: Speichere den Namen 'Shadow' in einer Variable und lass ihn dir anzeigen. Zwei Zeilen Code:\n\ndeck_name = \"Shadow\"\nprint(deck_name)\n\nErste Zeile: Speichern. Zweite Zeile: Anzeigen.",
+              "title": "Deck-Name: Shadow",
+              "description": "Eine Variable ist ein Speicherplatz mit einem Namen. Du legst etwas ab — und kannst es später wieder verwenden.\n\nDas Gleichheitszeichen = bedeutet 'speichere diesen Wert'.\n\ndeck_name = \"Shadow\" speichert den Text Shadow.\nprint(deck_name) gibt den gespeicherten Wert aus — ohne Anführungszeichen, weil du den Inhalt willst, nicht den Namen selbst.\n\nSchreib:\n\ndeck_name = \"Shadow\"\nprint(deck_name)",
               "expected_output": "Shadow",
               "starter_code": "",
               "solution": "deck_name = \"Shadow\"\nprint(deck_name)",
               "hints": [
-                "Du brauchst zwei Zeilen: Eine zum Speichern, eine zum Anzeigen.",
-                "Erste Zeile: deck_name = \"Shadow\" — das speichert den Namen. Zweite Zeile: print(deck_name) — das zeigt ihn an.",
-                "Die Lösung ist:\ndeck_name = \"Shadow\"\nprint(deck_name)"
+                "Zwei Zeilen: erst speichern, dann ausgeben.",
+                "Zeile 1: deck_name = \"Shadow\" — Zeile 2: print(deck_name)",
+                "Kein Anführungszeichen um deck_name in print() — du willst den Inhalt der Variable."
               ],
-              "echo_success": "ECHO: Shadow. Guter Name für ein Deck.",
-              "echo_fail": "ECHO: Zwei Zeilen. Erst speichern mit =, dann anzeigen mit print()."
+              "echo_success": "Shadow. Gespeichert. Das System erkennt dein Deck.",
+              "echo_fail": "Falsch. Zwei Zeilen: erst Variable setzen, dann print() — ohne Anführungszeichen um den Variablennamen."
             },
             {
               "id": "0.3.2",
               "type": "regex_output",
-              "concept": "variables_creative",
+              "concept": "variables_string",
               "difficulty": "easy",
               "xp": 50,
               "title": "Eigener Deck-Name",
-              "description": "ECHO: Jetzt wähl deinen eigenen Namen für dein Deck. Speichere ihn in deck_name und lass ihn anzeigen.",
+              "description": "Jetzt wähle deinen eigenen Namen.\n\nErstelle eine Variable namens deck_name mit deinem gewünschten Namen. Dann gib ihn aus.\n\nDein Name, deine Wahl.",
               "expected_output": ".+",
               "starter_code": "deck_name = \"\"\nprint(deck_name)",
               "solution": "deck_name = \"Phantom\"\nprint(deck_name)",
               "hints": [
-                "Schreib deinen Wunschnamen zwischen die Anführungszeichen.",
-                "Zum Beispiel: deck_name = \"Phantom\" und dann print(deck_name)",
-                "Schreibe irgendeinen Namen: deck_name = \"MeinDeck\"\nprint(deck_name)"
+                "Gleiche Struktur — nur mit deinem eigenen Text.",
+                "deck_name = \"dein Name\" — dann print(deck_name)",
+                "Stell sicher, dass der Name nicht leer ist. Irgendetwas zwischen die Anführungszeichen."
               ],
-              "echo_success": "ECHO: Dein Deck. Dein Name. Deine Identität.",
-              "echo_fail": "ECHO: Schreib einen Namen zwischen die Anführungszeichen. Irgendwas."
+              "echo_success": "Name registriert. Das Netz kennt dich jetzt.",
+              "echo_fail": "Leerer Name bringt nichts. Schreib irgendetwas zwischen die Anführungszeichen."
             },
             {
               "id": "0.3.3",
               "type": "exact_output",
-              "concept": "variables_number",
+              "concept": "variables_integer",
               "difficulty": "easy",
               "xp": 50,
-              "title": "Versionsnummer",
-              "description": "ECHO: Jede Software hat eine Versionsnummer. Bei Zahlen brauchst du KEINE Anführungszeichen. Tippe ein:\n\nversion = 1\nprint(version)",
+              "title": "Version speichern",
+              "description": "Variablen können auch Zahlen speichern — ohne Anführungszeichen. Zahlen brauchen keine, Text schon.\n\nversion = 1 speichert die Zahl 1.\nprint(version) gibt sie aus.\n\nSchreib:\n\nversion = 1\nprint(version)",
               "expected_output": "1",
               "starter_code": "",
               "solution": "version = 1\nprint(version)",
               "hints": [
-                "Zahlen werden ohne Anführungszeichen gespeichert.",
-                "Erste Zeile: version = 1 (ohne Anführungszeichen!). Zweite Zeile: print(version)",
-                "Die Lösung ist:\nversion = 1\nprint(version)"
+                "Zahlen in Variablen brauchen keine Anführungszeichen: version = 1",
+                "Zeile 1: version = 1 — Zeile 2: print(version)",
+                "Kein Anführungszeichen — weder um die 1 noch um version in print()."
               ],
-              "echo_success": "ECHO: Version 1. Der Anfang von etwas Großem.",
-              "echo_fail": "ECHO: Bei Zahlen keine Anführungszeichen. version = 1, nicht version = \"1\"."
+              "echo_success": "Version 1. Das ist der Anfang. Es gibt noch viele Updates.",
+              "echo_fail": "Überprüf beide Zeilen. Zahlen ohne Anführungszeichen: version = 1"
             },
             {
               "id": "0.3.4",
               "type": "contains_output",
               "concept": "variables_multiple",
-              "difficulty": "easy",
-              "xp": 50,
-              "title": "Alles anzeigen",
-              "description": "ECHO: Zeig mir beides — den Deck-Namen und die Version. Zwei Variablen, zwei print-Befehle:\n\ndeck_name = \"Shadow\"\nversion = 1\nprint(deck_name)\nprint(version)",
-              "expected_output": ["Shadow", "1"],
-              "starter_code": "",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Beide Werte ausgeben",
+              "description": "Jetzt hast du zwei Variablen: deck_name und version.\n\nGib beide aus — jede in einer eigenen print()-Zeile. Das System braucht alle Informationen.\n\nSchreib beide Variablen mit Werten und gib sie jeweils aus.",
+              "expected_output": "Shadow\n1",
+              "starter_code": "deck_name = \"Shadow\"\nversion = 1\n",
               "solution": "deck_name = \"Shadow\"\nversion = 1\nprint(deck_name)\nprint(version)",
               "hints": [
-                "Du brauchst vier Zeilen: Zwei zum Speichern, zwei zum Anzeigen.",
-                "deck_name = \"Shadow\" und version = 1, dann zweimal print().",
-                "Die Lösung ist:\ndeck_name = \"Shadow\"\nversion = 1\nprint(deck_name)\nprint(version)"
+                "Zwei print()-Befehle — einer für jede Variable.",
+                "print(deck_name) und dann print(version) — in zwei separaten Zeilen.",
+                "deck_name = \"Shadow\", version = 1 — dann zwei print()-Zeilen darunter."
               ],
-              "echo_success": "ECHO: Shadow v1. Dein Deck nimmt Form an.",
-              "echo_fail": "ECHO: Vier Zeilen. Zwei Variablen speichern, zwei ausgeben. Schritt für Schritt."
+              "echo_success": "Beide Werte übertragen. Das Deck ist identifiziert.",
+              "echo_fail": "Du musst beide Variablen ausgeben — zwei print()-Zeilen."
             }
-          ]
+          ],
+          "reward": {
+            "item_id": "memory_chip_v1",
+            "name": "Memory Chip v1.0",
+            "description": "Variablen-Speicher aktiviert."
+          }
         },
         {
           "id": "0.4",
           "title": "Profil aufbauen",
           "story_intro": [
-            "ECHO: Wir bauen dein Profil. Im Netz bist du nur so stark wie deine Daten.",
-            "ECHO: Je mehr dein Deck über dich weiß, desto besser kann es dir helfen.",
-            "ECHO: Du brauchst einen Handle — deinen Netrunner-Namen.",
-            "ECHO: Ein Level. Und eine Heimatstadt.",
-            "ECHO: Alles gespeichert in Variablen. Du weißt ja jetzt, wie das geht."
+            "Das Deck läuft. Das System hört zu.",
+            "Aber du bist im Netz ein Niemand ohne Profil.",
+            "Jeder Netrunner hat einen Handle — einen Codenamen.",
+            "Und ein Level. Und eine Stadt.",
+            "Deine Daten existieren noch nicht im System.",
+            "Das änderst du jetzt.",
+            "Baue dein Profil. Zeig dem Netz, wer du bist.",
+            "Oder zumindest — wer du sein willst."
           ],
           "story_complete": [
-            "ECHO: Profil komplett. Du existierst wieder.",
-            "ECHO: Im Netz bist du jetzt sichtbar. Für Freunde... und Feinde.",
-            "ECHO: Aber erstmal — lass uns das Deck komplett hochfahren."
+            "Profil erstellt.",
+            "Das System hat deine Daten gespeichert.",
+            "...",
+            "Ich sehe deinen Handle.",
+            "Den hast du schon einmal benutzt. In einer anderen Zeit.",
+            "Bist du sicher, dass du dich an nichts erinnerst?",
+            "Vergiss es. Weiter — wir sind fast durch hier."
+          ],
+          "challenges": [
+            {
+              "id": "0.4.1",
+              "type": "regex_output",
+              "concept": "variables_string",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Handle wählen",
+              "description": "Jeder Netrunner braucht einen Handle — einen Codenamen im Netz.\n\nErstelle eine Variable namens handle und speichere deinen gewünschten Codenamen darin. Dann gib ihn aus.\n\nWähle weise. Namen sind Macht im Netz.",
+              "expected_output": ".+",
+              "starter_code": "handle = \"\"\nprint(handle)",
+              "solution": "handle = \"Ghost\"\nprint(handle)",
+              "hints": [
+                "handle = \"dein Codename\" — dann print(handle)",
+                "Wähl irgendeinen Namen: handle = \"Specter\" zum Beispiel.",
+                "Stell sicher, dass der Name nicht leer ist."
+              ],
+              "echo_success": "Handle gespeichert. Das Netz kennt deinen Namen.",
+              "echo_fail": "Leerer Handle. Gib dir einen Namen — irgendetwas."
+            },
+            {
+              "id": "0.4.2",
+              "type": "exact_output",
+              "concept": "variables_integer",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Level initialisieren",
+              "description": "Jeder fängt bei Level 1 an. Auch du.\n\nSpeichere dein aktuelles Level in einer Variable namens level. Dann gib es aus.\n\nSchreib:\n\nlevel = 1\nprint(level)",
+              "expected_output": "1",
+              "starter_code": "",
+              "solution": "level = 1\nprint(level)",
+              "hints": [
+                "Zahlen ohne Anführungszeichen: level = 1",
+                "level = 1, dann print(level)",
+                "Das Ergebnis soll genau '1' sein — keine Dezimalstelle, keine Anführungszeichen."
+              ],
+              "echo_success": "Level 1. Es gibt keine andere Option. Du fängst von vorn an.",
+              "echo_fail": "level = 1, dann print(level) — ohne Anführungszeichen um die 1."
+            },
+            {
+              "id": "0.4.3",
+              "type": "exact_output",
+              "concept": "variables_string",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Stadt setzen",
+              "description": "Du operierst aus einer Stadt: Nexus City — das letzte freie Datennetz der Welt.\n\nSpeichere die Stadt in einer Variable namens stadt.\n\nSchreib:\n\nstadt = \"Nexus City\"\nprint(stadt)",
+              "expected_output": "Nexus City",
+              "starter_code": "",
+              "solution": "stadt = \"Nexus City\"\nprint(stadt)",
+              "hints": [
+                "Text in Anführungszeichen: stadt = \"Nexus City\"",
+                "Dann print(stadt) — ohne Anführungszeichen.",
+                "Exakt: stadt = \"Nexus City\" — mit Leerzeichen, großem N und großem C."
+              ],
+              "echo_success": "Nexus City. Du bist einer von uns.",
+              "echo_fail": "Prüf Groß- und Kleinschreibung: 'Nexus City' — mit Leerzeichen."
+            },
+            {
+              "id": "0.4.4",
+              "type": "contains_output",
+              "concept": "variables_multiple",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Profil ausgeben",
+              "description": "Dein Profil hat drei Felder: handle, level und stadt.\n\nGib alle drei in separaten print()-Zeilen aus. Das System braucht alle Daten.\n\nDrei Variablen. Drei print()-Befehle.",
+              "expected_output": "Ghost\n1\nNexus City",
+              "starter_code": "handle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\n",
+              "solution": "handle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
+              "hints": [
+                "Drei print()-Befehle — einer für jede Variable.",
+                "print(handle), dann print(level), dann print(stadt) — in drei Zeilen.",
+                "Reihenfolge: handle zuerst, dann level, dann stadt."
+              ],
+              "echo_success": "Profil vollständig. Das System kennt dich jetzt.",
+              "echo_fail": "Du brauchst drei print()-Befehle — einen für jede Variable."
+            }
           ],
           "reward": {
             "item_id": "id_card_v1",
             "name": "Netrunner ID v1.0",
             "description": "Dein Profil im System."
-          },
-          "challenges": [
-            {
-              "id": "0.4.1",
-              "type": "regex_output",
-              "concept": "profile_handle",
-              "difficulty": "easy",
-              "xp": 50,
-              "title": "Handle wählen",
-              "description": "ECHO: Wähl deinen Handle — deinen Netrunner-Namen. Speichere ihn in der Variable 'handle' und zeig ihn an.\n\nhandle = \"DeinName\"\nprint(handle)",
-              "expected_output": ".+",
-              "starter_code": "handle = \"\"\nprint(handle)",
-              "solution": "handle = \"Ghost\"\nprint(handle)",
-              "hints": [
-                "Schreib deinen gewünschten Netrunner-Namen zwischen die Anführungszeichen.",
-                "Zum Beispiel: handle = \"Ghost\" und dann print(handle)",
-                "Schreibe: handle = \"Ghost\"\nprint(handle)"
-              ],
-              "echo_success": "ECHO: Handle registriert. Ab jetzt kennt dich das Netz.",
-              "echo_fail": "ECHO: Schreib einen Namen rein. Irgendeinen. Das Netz wartet."
-            },
-            {
-              "id": "0.4.2",
-              "type": "exact_output",
-              "concept": "profile_level",
-              "difficulty": "easy",
-              "xp": 50,
-              "title": "Level setzen",
-              "description": "ECHO: Jeder Netrunner hat ein Level. Du startest bei 1. Speichere das:\n\nlevel = 1\nprint(level)",
-              "expected_output": "1",
-              "starter_code": "",
-              "solution": "level = 1\nprint(level)",
-              "hints": [
-                "Speichere die Zahl 1 in der Variable 'level'. Keine Anführungszeichen bei Zahlen.",
-                "Schreibe: level = 1 und dann print(level)",
-                "Die Lösung ist:\nlevel = 1\nprint(level)"
-              ],
-              "echo_success": "ECHO: Level 1. Jeder fängt mal an. Oder... fängt nochmal an.",
-              "echo_fail": "ECHO: level = 1 — keine Anführungszeichen bei Zahlen, erinnerst du dich?"
-            },
-            {
-              "id": "0.4.3",
-              "type": "exact_output",
-              "concept": "profile_city",
-              "difficulty": "easy",
-              "xp": 50,
-              "title": "Heimatstadt",
-              "description": "ECHO: Deine Stadt: Nexus City. Speichere sie:\n\nstadt = \"Nexus City\"\nprint(stadt)",
-              "expected_output": "Nexus City",
-              "starter_code": "",
-              "solution": "stadt = \"Nexus City\"\nprint(stadt)",
-              "hints": [
-                "Text-Variablen brauchen Anführungszeichen um den Wert.",
-                "Schreibe: stadt = \"Nexus City\" und dann print(stadt)",
-                "Die Lösung ist:\nstadt = \"Nexus City\"\nprint(stadt)"
-              ],
-              "echo_success": "ECHO: Nexus City. Neon und Beton. Willkommen zu Hause.",
-              "echo_fail": "ECHO: stadt = \"Nexus City\" — Text in Anführungszeichen, dann print(stadt)."
-            },
-            {
-              "id": "0.4.4",
-              "type": "contains_output",
-              "concept": "profile_complete",
-              "difficulty": "medium",
-              "xp": 100,
-              "title": "Profil komplett",
-              "description": "ECHO: Jetzt alles zusammen. Erstelle drei Variablen und zeig alle an:\n\nhandle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)\n\nDu kannst deinen eigenen Handle wählen!",
-              "expected_output": ["1", "Nexus City"],
-              "starter_code": "",
-              "solution": "handle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
-              "hints": [
-                "Drei Variablen erstellen, drei print()-Befehle. Sechs Zeilen insgesamt.",
-                "handle = \"DeinName\", level = 1, stadt = \"Nexus City\" — dann dreimal print().",
-                "Die Lösung ist:\nhandle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)"
-              ],
-              "echo_success": "ECHO: Profil vollständig. Du bist wieder wer im Netz.",
-              "echo_fail": "ECHO: Drei Variablen, drei Prints. handle, level, stadt. Schritt für Schritt."
-            }
-          ]
+          }
         },
         {
           "id": "0.5",
           "title": "Boot Complete",
           "story_intro": [
-            "ECHO: Das ist der letzte Schritt. Danach ist dein System vollständig hochgefahren.",
-            "ECHO: Ich will, dass du alles zusammen nutzt, was du gelernt hast.",
-            "ECHO: Variablen. Zahlen. Rechnen. Anzeigen.",
-            "ECHO: Bau den Boot-Screen deines Decks. Zeig mir, wer du bist.",
-            "ECHO: Das hier ist dein erster echter Hack. Mach mich stolz.",
-            "ECHO: ...Ich meine — mach DICH stolz."
+            "Das war der Test.",
+            "Du hast bestanden — zumindest diesen Teil.",
+            "print(), Zahlen, Variablen. Das ist die Basis.",
+            "Alles im Netz baut darauf auf.",
+            "Jetzt kommt der letzte Schritt: alles zusammen.",
+            "Ich brauche ein komplettes Programm — Variablen, eine Berechnung, mehrere Ausgaben.",
+            "Zeig mir, dass du bereit bist.",
+            "Das Lower Grid wartet.",
+            "Und damit auch die erste echte Gefahr."
           ],
           "story_complete": [
-            "ECHO: ...",
-            "ECHO: Boot Sequence abgeschlossen.",
-            "ECHO: Alle Systeme online. Deck operativ.",
-            "ECHO: Da war... ein Moment, in dem ich dachte, ich verliere dich. Nochmal.",
-            "ECHO: Aber du bist da. Und du lernst schnell.",
-            "ECHO: Die Stadtkarte blinkt. Der Lower Grid ruft.",
-            "ECHO: Bist du bereit für den nächsten Schritt?",
-            "[SYSTEM] Neues Gebiet freigeschaltet: LOWER GRID"
+            "Boot-Sequenz abgeschlossen.",
+            "System voll operational.",
+            "Du bist online.",
+            "...",
+            "Ich muss dir etwas sagen.",
+            "Du bist nicht das erste Mal im Netz.",
+            "Das hier — das ist eine Rückkehr.",
+            "Ich weiß nicht, wer dir die Erinnerungen genommen hat. Noch nicht.",
+            "Aber ich werde es herausfinden.",
+            "Und du wirst mir helfen.",
+            "Willkommen zurück, Netrunner.",
+            "[SYSTEM] Neues Gebiet freigeschaltet: LOWER GRID",
+            "Beweg dich."
+          ],
+          "challenges": [
+            {
+              "id": "0.5.1",
+              "type": "contains_output",
+              "concept": "combined_basics",
+              "difficulty": "hard",
+              "xp": 250,
+              "title": "BOSS: System vollständig hochfahren",
+              "description": "Das ist dein erster echter Test.\n\nSchreib ein Programm, das:\n1. Eine Variable handle mit deinem Netrunner-Namen erstellt\n2. Eine Variable level mit dem Wert 1 erstellt\n3. Eine Variable credits mit dem Wert 100 erstellt\n4. bonus_credits berechnet: credits + 50\n5. Alle vier Werte mit print() ausgibt\n\nDas System erwartet vier Zeilen Output:\ndeinen Handle\n1\n100\n150",
+              "expected_output": "Ghost\n1\n100\n150",
+              "starter_code": "# Erstelle deine Variablen\nhandle = \"\"\nlevel = \ncredits = \n\n# Berechnung\nbonus_credits = \n\n# Ausgabe\n",
+              "solution": "handle = \"Ghost\"\nlevel = 1\ncredits = 100\n\nbonus_credits = credits + 50\n\nprint(handle)\nprint(level)\nprint(credits)\nprint(bonus_credits)",
+              "hints": [
+                "Du brauchst vier Variablen und vier print()-Befehle — insgesamt acht Zeilen plus die Berechnung.",
+                "bonus_credits = credits + 50 — speichere das Ergebnis in einer neuen Variable, nicht in print().",
+                "Reihenfolge: handle = \"Ghost\", level = 1, credits = 100, bonus_credits = credits + 50 — dann vier print()-Zeilen."
+              ],
+              "echo_success": "Boot-Sequenz abgeschlossen. Du bist bereit. Das Lower Grid ist offen.",
+              "echo_fail": "Noch nicht fertig. Vier Variablen, eine Berechnung, vier Ausgaben. Du schaffst das."
+            }
           ],
           "reward": {
             "item_id": "boot_key",
@@ -440,28 +488,7 @@
           "unlocks_district": {
             "id": "lower_grid",
             "name": "Lower Grid"
-          },
-          "challenges": [
-            {
-              "id": "0.5.1",
-              "type": "contains_output",
-              "concept": "boss_boot",
-              "difficulty": "hard",
-              "xp": 250,
-              "title": "BOSS: System Boot",
-              "description": "ECHO: Bau den Boot-Screen deines Decks. Du brauchst:\n\n1. Variable 'handle' mit deinem Netrunner-Namen\n2. Variable 'level' mit dem Wert 1\n3. Variable 'hp' mit dem Wert 100\n4. Berechne 'power' als level * hp\n5. Zeige alles an mit print()\n\nDer Output muss deinen Handle, dein Level, dein HP und deine Power enthalten.\n\nBeispiel:\nhandle = \"Ghost\"\nlevel = 1\nhp = 100\npower = level * hp\nprint(handle)\nprint(level)\nprint(hp)\nprint(power)",
-              "expected_output": ["100"],
-              "starter_code": "",
-              "solution": "handle = \"Ghost\"\nlevel = 1\nhp = 100\npower = level * hp\nprint(handle)\nprint(level)\nprint(hp)\nprint(power)",
-              "hints": [
-                "Du brauchst 4 Variablen und 4 print()-Befehle. Insgesamt 8 Zeilen.",
-                "handle = \"Name\", level = 1, hp = 100, power = level * hp. Dann viermal print().",
-                "Die Lösung ist:\nhandle = \"Ghost\"\nlevel = 1\nhp = 100\npower = level * hp\nprint(handle)\nprint(level)\nprint(hp)\nprint(power)"
-              ],
-              "echo_success": "ECHO: Boot Sequence komplett. Willkommen zurück, Netrunner.",
-              "echo_fail": "ECHO: Fast. Du brauchst 4 Variablen: handle, level, hp und power. Power wird berechnet: level * hp."
-            }
-          ]
+          }
         }
       ]
     }
