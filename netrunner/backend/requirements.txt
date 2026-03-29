@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+aiosqlite
+pyjwt
+python-dotenv
