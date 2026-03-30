@@ -1,0 +1,615 @@
+{
+  "chapters": [
+    {
+      "id": 0,
+      "title": "BOOT SEQUENCE",
+      "subtitle": "Das Erwachen",
+      "description": "Was ist Code? Was ist Python? print(), Zahlen, Variablen.",
+      "district": "boot_sequence",
+      "missions": [
+        {
+          "id": "0.1",
+          "title": "Erstes Signal",
+          "story_intro": [
+            "...",
+            "...",
+            "\u2588\u2593\u2592\u2591 SIGNAL ERKANNT \u2591\u2592\u2593\u2588",
+            "",
+            "Hey. H\u00f6rst du mich?",
+            "Gut. Dann h\u00f6r zu \u2014 wir haben wenig Zeit.",
+            "Ich bin ECHO. Mehr musst du gerade nicht wissen.",
+            "Du warst mal jemand. Ein Netrunner. Einer der Besten, wenn man den Logs glauben darf.",
+            "Aber jemand hat dich gel\u00f6scht. Dein Wissen. Dein Ged\u00e4chtnis. Alles.",
+            "Ich kenne dich von... vorher. Und ich bringe dir alles zur\u00fcck.",
+            "Aber du musst mir vertrauen.",
+            "Vor dir ist ein Terminal. Dein Deck \u2014 dein Werkzeug im Netz.",
+            "Es versteht nur eine Sprache: Python.",
+            "Und alles beginnt mit einem einzigen Befehl: print()",
+            "print() ist deine Stimme. Was du in die Klammern schreibst \u2014 in Anf\u00fchrungszeichen \u2014 sendet es ins Netz.",
+            "Ich zeig dir genau, was du tippen musst. Wort f\u00fcr Wort."
+          ],
+          "story_complete": [
+            "Signal empfangen. Schwach, aber stabil.",
+            "...",
+            "Wei\u00dft du, ich habe lang auf dieses Signal gewartet.",
+            "L\u00e4nger, als dir klar ist.",
+            "Ich... vergiss es. Irrelevant.",
+            "Dein Deck ist aktiv. Du kannst Nachrichten senden.",
+            "Das ist der erste Schritt. Machen wir weiter."
+          ],
+          "challenges": [
+            {
+              "id": "0.1.1",
+              "type": "exact_output",
+              "concept": "print_basic",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Lebenszeichen",
+              "description": "Das Netz ist still. Kein Signal, kein Zeichen von Leben \u2014 bis du sprichst.\n\nDer Befehl print() sendet eine Nachricht ins System. Text muss dabei in Anf\u00fchrungszeichen stehen \u2014 das sind die Grenzen deiner Nachricht.\n\nECHO: Schreib exakt das hier:\n\nprint(\"Ich bin noch da\")",
+              "expected_output": "Ich bin noch da",
+              "starter_code": "",
+              "solution": "print(\"Ich bin noch da\")",
+              "hints": [
+                "Der Befehl hei\u00dft print \u2014 alles kleingeschrieben, direkt gefolgt von einer runden Klammer.",
+                "Dein Text muss in Anf\u00fchrungszeichen stehen: print(\"dein Text\")",
+                "Exakt so: print(\"Ich bin noch da\") \u2014 Gro\u00df- und Kleinschreibung z\u00e4hlt."
+              ],
+              "echo_success": "Da bist du. Das System h\u00f6rt dich.",
+              "echo_fail": "Nichts. Kein Signal. \u00dcberpr\u00fcf Klammern und Anf\u00fchrungszeichen \u2014 jedes Zeichen z\u00e4hlt."
+            },
+            {
+              "id": "0.1.2",
+              "type": "exact_output",
+              "concept": "print_basic",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Direkter Kontakt",
+              "description": "Gut. print() funktioniert \u2014 du hast eine Stimme.\n\nJetzt sende eine Nachricht direkt an mich. Das System leitet alles weiter.\n\nECHO: Schreib:\n\nprint(\"ECHO, ich h\u00f6re dich\")",
+              "expected_output": "ECHO, ich h\u00f6re dich",
+              "starter_code": "",
+              "solution": "print(\"ECHO, ich h\u00f6re dich\")",
+              "hints": [
+                "Gleiche Struktur wie eben: print(\"Text hier\")",
+                "Vergiss das Komma nicht: \"ECHO, ich h\u00f6re dich\"",
+                "Exakt: print(\"ECHO, ich h\u00f6re dich\") \u2014 jedes Zeichen, jedes Komma."
+              ],
+              "echo_success": "Empfangen. Laut und deutlich. Die Verbindung steht.",
+              "echo_fail": "Falsche Frequenz. Achte auf den exakten Text \u2014 auch das Komma geh\u00f6rt dazu."
+            },
+            {
+              "id": "0.1.3",
+              "type": "regex_output",
+              "concept": "print_basic",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Frequenz w\u00e4hlen",
+              "description": "Jetzt wei\u00dft du, wie print() funktioniert.\n\nZeit f\u00fcr deine eigene Nachricht. Das Muster kennst du:\n\nprint(\"dein Text hier\")\n\nSchreib irgendetwas \u2014 deine Nachricht, dein Signal. Hauptsache, es kommt etwas an.",
+              "expected_output": ".+",
+              "starter_code": "print(\"\")",
+              "solution": "print(\"Ich bin online\")",
+              "hints": [
+                "Das Muster ist: print(\"dein Text\") \u2014 ersetze den Text durch irgendetwas.",
+                "Zum Beispiel: print(\"Hallo Netz\") oder print(\"Test 123\") \u2014 deine Wahl.",
+                "Schreib einfach irgendetwas zwischen die Anf\u00fchrungszeichen. Es darf nur nicht leer sein."
+              ],
+              "echo_success": "Deine eigene Frequenz. Klar und eindeutig. Ich... erkenne sie. Egal. Weiter.",
+              "echo_fail": "Leeres Signal. Du musst Text zwischen die Anf\u00fchrungszeichen schreiben."
+            },
+            {
+              "id": "0.1.4",
+              "type": "regex_output",
+              "concept": "print_basic",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Doppelsignal",
+              "description": "Ein Signal ist gut. Zwei sind besser \u2014 das Netz braucht Redundanz.\n\nSende zwei verschiedene Nachrichten. Jede in einem eigenen print()-Befehl, jede in einer eigenen Zeile.\n\nZwei Zeilen Code. Zwei Nachrichten. Zeig dem System, dass du das Prinzip verstanden hast.",
+              "expected_output": ".+\n.+",
+              "starter_code": "",
+              "solution": "print(\"Signal eins\")\nprint(\"Signal zwei\")",
+              "hints": [
+                "Du brauchst zwei print()-Befehle \u2014 jeden in einer eigenen Zeile.",
+                "Zeile 1: print(\"erste Nachricht\") \u2014 Zeile 2: print(\"zweite Nachricht\")",
+                "Zum Beispiel:\nprint(\"Hallo\")\nprint(\"Welt\")"
+              ],
+              "echo_success": "Doppelsignal best\u00e4tigt. Du lernst schneller als erwartet. Schneller als du solltest.",
+              "echo_fail": "Ich brauche zwei Signale \u2014 zwei separate print()-Befehle, jeder in seiner eigenen Zeile."
+            }
+          ],
+          "reward": {
+            "item_id": "signal_sender_v1",
+            "name": "Signal Sender v1.0",
+            "description": "Dein erstes Programm. Es hat das Netz erreicht."
+          }
+        },
+        {
+          "id": "0.2",
+          "title": "System Diagnostics",
+          "story_intro": [
+            "Signal steht. Gut.",
+            "Aber ein Netrunner, der nur reden kann, ist nutzlos.",
+            "Dein Deck hat einen Prozessor. Der kann rechnen \u2014 schneller als jedes menschliche Gehirn.",
+            "Jede Sekunde im Netz kostet Ressourcen. Credits. Energie. Zeit.",
+            "Wenn du nicht rechnen kannst, bist du blind.",
+            "Python versteht Mathematik direkt im print()-Befehl.",
+            "Zahlen brauchen keine Anf\u00fchrungszeichen \u2014 die sind nur f\u00fcr Text.",
+            "Wir testen jetzt deinen Prozessor. Vier Grundoperationen. Vier Checks.",
+            "Fang an."
+          ],
+          "story_complete": [
+            "Diagnostik abgeschlossen. Alle Systeme im gr\u00fcnen Bereich.",
+            "...",
+            "Du hast das schnell verstanden. Zu schnell, ehrlich gesagt.",
+            "Die meisten brauchen l\u00e4nger f\u00fcr sowas.",
+            "Fast so, als h\u00e4ttest du das schon mal gemacht.",
+            "Aber das ist unm\u00f6glich. Dein Ged\u00e4chtnis ist leer.",
+            "... Oder?"
+          ],
+          "challenges": [
+            {
+              "id": "0.2.1",
+              "type": "exact_output",
+              "concept": "print_math",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Prozessor-Check: Addition",
+              "description": "Python kann direkt rechnen. Zahlen brauchen keine Anf\u00fchrungszeichen \u2014 sonst denkt Python, es ist Text.\n\nprint(2 + 3) gibt das Ergebnis der Rechnung aus, nicht den Text \"2 + 3\".\n\nECHO: Erster Test. Schreib:\n\nprint(2 + 3)",
+              "expected_output": "5",
+              "starter_code": "",
+              "solution": "print(2 + 3)",
+              "hints": [
+                "Benutze print() \u2014 aber diesmal ohne Anf\u00fchrungszeichen um die Zahlen.",
+                "Zahlen und das Plus direkt in die Klammer: print(2 + 3)",
+                "Exakt: print(2 + 3) \u2014 Python berechnet das automatisch."
+              ],
+              "echo_success": "5. Korrekt. Prozessor antwortet.",
+              "echo_fail": "Falsches Ergebnis. Zahlen brauchen keine Anf\u00fchrungszeichen. print(2 + 3) \u2014 ohne Anf\u00fchrungszeichen."
+            },
+            {
+              "id": "0.2.2",
+              "type": "exact_output",
+              "concept": "print_math",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Prozessor-Check: Subtraktion",
+              "description": "Subtraktion \u2014 das Minus-Zeichen macht genau das, was du denkst.\n\nIm Netz verlierst du st\u00e4ndig Ressourcen. Du musst wissen, was \u00fcbrig bleibt.\n\nECHO: Schreib:\n\nprint(100 - 42)",
+              "expected_output": "58",
+              "starter_code": "",
+              "solution": "print(100 - 42)",
+              "hints": [
+                "Gleiche Struktur wie Addition \u2014 aber mit dem Minus-Zeichen.",
+                "print(100 - 42) \u2014 Python rechnet das direkt.",
+                "Das Ergebnis ist 58. Schreib: print(100 - 42)"
+              ],
+              "echo_success": "58. Ressourcen berechnet.",
+              "echo_fail": "Falsch. print(100 - 42) \u2014 Minus-Zeichen zwischen den Zahlen."
+            },
+            {
+              "id": "0.2.3",
+              "type": "exact_output",
+              "concept": "print_math",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Prozessor-Check: Multiplikation",
+              "description": "Multiplikation im Netz: das Sternchen *\n\nNicht \"x\" wie in der Schule \u2014 der Prozessor versteht nur das Sternchen.\n\nECHO: Schreib:\n\nprint(7 * 8)",
+              "expected_output": "56",
+              "starter_code": "",
+              "solution": "print(7 * 8)",
+              "hints": [
+                "Das Mal-Zeichen in Python ist das Sternchen: *",
+                "print(7 * 8) \u2014 Sternchen f\u00fcr Multiplikation.",
+                "Das Ergebnis ist 56. Schreib: print(7 * 8)"
+              ],
+              "echo_success": "56. Multiplikation l\u00e4uft.",
+              "echo_fail": "Falsches Zeichen? Multiplikation ist das Sternchen: * \u2014 nicht x."
+            },
+            {
+              "id": "0.2.4",
+              "type": "exact_output",
+              "concept": "print_math",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Prozessor-Check: Division",
+              "description": "Division mit dem Schr\u00e4gstrich: /\n\nWichtig: Python gibt bei Division immer eine Dezimalzahl aus. 10 / 2 ergibt 5.0, nicht 5. Der Punkt geh\u00f6rt dazu.\n\nECHO: Schreib:\n\nprint(10 / 2)",
+              "expected_output": "5.0",
+              "starter_code": "",
+              "solution": "print(10 / 2)",
+              "hints": [
+                "Division mit dem Schr\u00e4gstrich: /",
+                "print(10 / 2) \u2014 das Ergebnis ist eine Dezimalzahl.",
+                "Python gibt 5.0 aus, nicht 5. Das ist normal. Schreib: print(10 / 2)"
+              ],
+              "echo_success": "5.0. Der Punkt ist Absicht. Python ist pr\u00e4zise. Gew\u00f6hn dich dran.",
+              "echo_fail": "Division = Schr\u00e4gstrich. Und ja, 5.0 ist korrekt \u2014 Python mag Dezimalzahlen."
+            },
+            {
+              "id": "0.2.5",
+              "type": "exact_output",
+              "concept": "print_math",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Frequenz knacken",
+              "description": "Im Netz gibt es verschl\u00fcsselte Frequenzen. Der Sicherheitscode dieser Frequenz ist 42.\n\nDu musst den Code errechnen, nicht einfach eintippen. Benutze eine Multiplikation \u2014 finde zwei Zahlen, deren Produkt 42 ergibt.\n\nDas Muster:\n\nprint(___ * ___)\n\nDie Ausgabe muss exakt 42 sein.",
+              "expected_output": "42",
+              "starter_code": "print()",
+              "solution": "print(6 * 7)",
+              "hints": [
+                "Du brauchst zwei Zahlen, die multipliziert 42 ergeben.",
+                "Denk an die Grundrechenarten: 6 mal 7 ist...?",
+                "print(6 * 7) \u2014 oder print(7 * 6), oder print(2 * 21). Alles korrekt."
+              ],
+              "echo_success": "42. Frequenz geknackt. Gut kombiniert.",
+              "echo_fail": "Das Ergebnis muss exakt 42 sein. Welche zwei Zahlen ergeben multipliziert 42?"
+            },
+            {
+              "id": "0.2.6",
+              "type": "regex_output",
+              "concept": "print_math",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Freie Berechnung",
+              "description": "Du kennst jetzt +, -, * und /.\n\nZeig mir, dass du den Prozessor beherrschst. Berechne irgendetwas \u2014 deine eigene Rechnung, dein eigenes Ergebnis.\n\nSchreib einen print()-Befehl mit einer Rechenoperation deiner Wahl. Das Ergebnis muss eine Zahl sein.",
+              "expected_output": "-?[0-9]+(\\.[0-9]+)?",
+              "starter_code": "print()",
+              "solution": "print(3 + 7)",
+              "hints": [
+                "Benutze print() mit einer Rechenoperation: +, -, * oder /",
+                "Zum Beispiel: print(5 + 5) oder print(20 - 3) \u2014 deine Wahl.",
+                "Irgendeine Rechnung: print(2 + 2) gibt 4 aus. Hauptsache, es ist eine Zahl."
+              ],
+              "echo_success": "Berechnung best\u00e4tigt. Der Prozessor geh\u00f6rt dir.",
+              "echo_fail": "Das Ergebnis muss eine Zahl sein. Benutze +, -, * oder / zwischen zwei Zahlen in print()."
+            }
+          ],
+          "reward": {
+            "item_id": "calc_module_v1",
+            "name": "Calc Module v1.0",
+            "description": "Grundrechenarten freigeschaltet. Dein Prozessor antwortet."
+          }
+        },
+        {
+          "id": "0.3",
+          "title": "Deck benennen",
+          "story_intro": [
+            "Wir m\u00fcssen reden.",
+            "Im Netz bist du nicht du. Du bist dein Deck.",
+            "Und dein Deck ist gerade ein Geist \u2014 namenlos, unsichtbar, wertlos.",
+            "Das \u00e4ndern wir. Jetzt.",
+            "In Python gibt es etwas, das sich Variable nennt.",
+            "Stell dir eine Schublade vor: du klebst ein Etikett drauf und legst etwas rein.",
+            "Das Etikett ist der Name. Der Inhalt ist der Wert.",
+            "deck_name = \"Shadow\" \u2014 das klebt 'Shadow' in die Schublade 'deck_name'.",
+            "print(deck_name) \u2014 das holt den Wert raus und zeigt ihn.",
+            "Ohne Anf\u00fchrungszeichen bei print \u2014 weil du den Inhalt willst, nicht den Namen der Schublade.",
+            "Und das Gleichheitszeichen? Das bedeutet nicht 'ist gleich'. Es bedeutet: speichere.",
+            "Gib deinem Deck eine Identit\u00e4t."
+          ],
+          "story_complete": [
+            "Dein Deck hat einen Namen. Und eine Version.",
+            "Ich sehe es jetzt im System.",
+            "...",
+            "Diesen Namen.",
+            "Den kenne ich.",
+            "Woher wei\u00dft du, dass du \u2014",
+            "... Vergiss es. Zufall. Muss ein Zufall sein.",
+            "Weiter. Wir haben keine Zeit f\u00fcr Fragen, die ich nicht beantworten kann.",
+            "Oder will."
+          ],
+          "challenges": [
+            {
+              "id": "0.3.1",
+              "type": "exact_output",
+              "concept": "variable_string",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Deck-Name: Shadow",
+              "description": "Eine Variable ist ein Speicherplatz mit Namen. Du legst etwas ab \u2014 und kannst es sp\u00e4ter wieder abrufen.\n\nDas = bedeutet \"speichere diesen Wert\".\n\ndeck_name = \"Shadow\" speichert den Text Shadow.\nprint(deck_name) gibt ihn aus \u2014 ohne Anf\u00fchrungszeichen, weil du den Inhalt willst.\n\nECHO: Zwei Zeilen. Schreib:\n\ndeck_name = \"Shadow\"\nprint(deck_name)",
+              "expected_output": "Shadow",
+              "starter_code": "",
+              "solution": "deck_name = \"Shadow\"\nprint(deck_name)",
+              "hints": [
+                "Zwei Zeilen Code: erst speichern, dann ausgeben.",
+                "Zeile 1: deck_name = \"Shadow\" \u2014 Zeile 2: print(deck_name)",
+                "Kein Anf\u00fchrungszeichen um deck_name in print() \u2014 du willst den Inhalt, nicht den Text 'deck_name'."
+              ],
+              "echo_success": "Shadow. Gespeichert. Dein Deck hat einen Namen.",
+              "echo_fail": "Zwei Zeilen: erst die Variable setzen, dann print() \u2014 ohne Anf\u00fchrungszeichen um den Variablennamen."
+            },
+            {
+              "id": "0.3.2",
+              "type": "exact_output",
+              "concept": "variable_integer",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Version setzen",
+              "description": "Variablen k\u00f6nnen auch Zahlen speichern \u2014 ohne Anf\u00fchrungszeichen.\n\nText = Anf\u00fchrungszeichen. Zahlen = keine.\n\nversion = 1 speichert die Zahl 1.\nprint(version) gibt sie aus.\n\nECHO: Schreib:\n\nversion = 1\nprint(version)",
+              "expected_output": "1",
+              "starter_code": "",
+              "solution": "version = 1\nprint(version)",
+              "hints": [
+                "Zahlen brauchen keine Anf\u00fchrungszeichen: version = 1",
+                "Zeile 1: version = 1 \u2014 Zeile 2: print(version)",
+                "Kein Anf\u00fchrungszeichen. Weder um die 1 noch um version in print()."
+              ],
+              "echo_success": "Version 1. Der Anfang. Da kommen noch viele Updates.",
+              "echo_fail": "Zahlen ohne Anf\u00fchrungszeichen: version = 1, dann print(version)."
+            },
+            {
+              "id": "0.3.3",
+              "type": "regex_output",
+              "concept": "variable_string",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Eigener Deckname",
+              "description": "Genug kopieren. Jetzt w\u00e4hlst du.\n\nDas Muster kennst du:\n\ndeck_name = \"Dein Name\"\nprint(deck_name)\n\nErsetze den Platzhalter durch deinen eigenen Decknamen. Irgendwas \u2014 solange es nicht leer ist.\n\nDein Deck. Dein Name.",
+              "expected_output": ".+",
+              "starter_code": "deck_name = \"\"\nprint(deck_name)",
+              "solution": "deck_name = \"Phantom\"\nprint(deck_name)",
+              "hints": [
+                "Gleiche Struktur \u2014 nur mit deinem eigenen Text zwischen den Anf\u00fchrungszeichen.",
+                "deck_name = \"dein Name\" \u2014 dann print(deck_name). Nicht leer lassen.",
+                "Schreib irgendeinen Namen: deck_name = \"Viper\" zum Beispiel. Dann print(deck_name)."
+              ],
+              "echo_success": "Registriert. Das Netz kennt dein Deck jetzt. Gute Wahl. Glaub ich.",
+              "echo_fail": "Leerer Name. Schreib irgendetwas zwischen die Anf\u00fchrungszeichen."
+            },
+            {
+              "id": "0.3.4",
+              "type": "exact_output",
+              "concept": "variable_combined",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Deck-Info ausgeben",
+              "description": "Dein Deck hat jetzt einen Namen und eine Version. Das System braucht beides.\n\nDie Variablen sind vorbereitet. Du musst sie nur noch ausgeben \u2014 mit zwei print()-Befehlen.\n\nF\u00fcge zwei print()-Zeilen hinzu: eine f\u00fcr deck_name, eine f\u00fcr version.",
+              "expected_output": "Shadow\n1",
+              "starter_code": "deck_name = \"Shadow\"\nversion = 1\n",
+              "solution": "deck_name = \"Shadow\"\nversion = 1\nprint(deck_name)\nprint(version)",
+              "hints": [
+                "Zwei print()-Befehle unter den Variablen \u2014 einen f\u00fcr jede.",
+                "print(deck_name) und dann print(version) \u2014 in zwei separaten Zeilen.",
+                "Erg\u00e4nze unter den Variablen:\nprint(deck_name)\nprint(version)"
+              ],
+              "echo_success": "Beide Werte \u00fcbertragen. Deck identifiziert.",
+              "echo_fail": "Du musst beide Variablen ausgeben. Zwei print()-Zeilen unter den Variablen."
+            },
+            {
+              "id": "0.3.5",
+              "type": "regex_output",
+              "concept": "variable_string",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Eigener Datenspeicher",
+              "description": "Letzte Aufgabe: Erstelle komplett selbst eine Variable.\n\nW\u00e4hle einen eigenen Namen f\u00fcr die Variable. W\u00e4hle einen eigenen Wert. Gib sie aus.\n\nKeine Vorlage. Kein Muster. Nur das Ziel:\n\nErstelle eine Variable und zeige ihren Inhalt mit print().",
+              "expected_output": ".+",
+              "starter_code": "",
+              "solution": "codename = \"Phantom\"\nprint(codename)",
+              "hints": [
+                "Eine Variable erstellen: mein_name = \"Wert\" \u2014 dann print(mein_name).",
+                "Der Variablenname darf keine Leerzeichen haben. Unterstriche sind OK: mein_wert = \"Test\"",
+                "Zum Beispiel:\nstatus = \"aktiv\"\nprint(status)"
+              ],
+              "echo_success": "Eigene Variable. Eigener Wert. Du brauchst mich bald nicht mehr. ... Das war ein Witz.",
+              "echo_fail": "Du brauchst eine Zeile zum Speichern und eine zum Ausgeben. name = \"Wert\" und dann print(name)."
+            }
+          ],
+          "reward": {
+            "item_id": "memory_chip_v1",
+            "name": "Memory Chip v1.0",
+            "description": "Variablen-Speicher aktiviert. Dein Deck merkt sich Dinge."
+          }
+        },
+        {
+          "id": "0.4",
+          "title": "Profil aufbauen",
+          "story_intro": [
+            "Das Deck l\u00e4uft. Variablen funktionieren. Gut.",
+            "Aber du bist im Netz immer noch ein Niemand.",
+            "Jeder Netrunner hat ein Profil \u2014 Handle, Level, Stadt.",
+            "Ohne Profil bist du unsichtbar. Und unsichtbar klingt gut, ist aber schlecht.",
+            "Unsichtbar hei\u00dft: kein Zugang. Keine Verb\u00fcndeten. Keine Auftr\u00e4ge.",
+            "Wir bauen jetzt dein Profil. Mehrere Variablen, ein Ziel.",
+            "Und am Ende soll dein Deck alles zusammen ausgeben k\u00f6nnen.",
+            "Zeig dem Netz, wer du bist. Oder zumindest \u2014 wer du sein willst."
+          ],
+          "story_complete": [
+            "Profil erstellt. Das System hat dich registriert.",
+            "...",
+            "Ich sehe deinen Handle.",
+            "Den hast du schon einmal benutzt. In einer anderen Zeit.",
+            "Bist du sicher, dass du dich an nichts erinnerst?",
+            "Weil ich... ich erinnere mich.",
+            "An alles.",
+            "Vergiss, was ich gesagt habe. Wir sind fast durch."
+          ],
+          "challenges": [
+            {
+              "id": "0.4.1",
+              "type": "exact_output",
+              "concept": "variable_combined",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Profil-Vorlage",
+              "description": "ECHO hat eine Profil-Vorlage vorbereitet. Drei Variablen, drei Ausgaben.\n\nTipp alles exakt ab \u2014 jede Zeile z\u00e4hlt.\n\nECHO: Schreib:\n\nhandle = \"Specter\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
+              "expected_output": "Specter\n1\nNexus City",
+              "starter_code": "",
+              "solution": "handle = \"Specter\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
+              "hints": [
+                "Sechs Zeilen: drei Variablen oben, drei print()-Befehle unten.",
+                "Text braucht Anf\u00fchrungszeichen (handle, stadt), Zahlen nicht (level).",
+                "handle = \"Specter\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)"
+              ],
+              "echo_success": "Profil \u00fcbertragen. Sauber. Genau so funktioniert das.",
+              "echo_fail": "Sechs Zeilen. Drei Variablen, drei print()-Befehle. Text in Anf\u00fchrungszeichen, Zahlen ohne."
+            },
+            {
+              "id": "0.4.2",
+              "type": "regex_output",
+              "concept": "variable_combined",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Profil personalisieren",
+              "description": "Die Vorlage war nur ein Test. Jetzt machst du es richtig.\n\nDas Muster kennst du:\n\nhandle = \"___\"\nlevel = 1\nstadt = \"Nexus City\"\n\nSetze deinen eigenen Handle ein. Level und Stadt bleiben. Gib alle drei Werte mit print() aus.\n\nDrei Variablen. Drei Ausgaben. Dein Handle.",
+              "expected_output": ".+\n1\nNexus City",
+              "starter_code": "handle = \"\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
+              "solution": "handle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
+              "hints": [
+                "Ersetze nur den leeren String bei handle durch deinen Namen.",
+                "handle = \"DeinName\" \u2014 der Rest bleibt wie er ist.",
+                "Zum Beispiel: handle = \"Ghost\" \u2014 dann sollte die Ausgabe Ghost, 1, Nexus City zeigen."
+              ],
+              "echo_success": "Handle registriert. Du bist jetzt jemand im Netz. Wie es sich geh\u00f6rt.",
+              "echo_fail": "Dein Handle darf nicht leer sein. Schreib irgendeinen Namen zwischen die Anf\u00fchrungszeichen."
+            },
+            {
+              "id": "0.4.3",
+              "type": "exact_output",
+              "concept": "variable_math",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Credits berechnen",
+              "description": "Jetzt wird's ernst: Variablen und Rechnen zusammen.\n\nDein Deck hat 100 Credits Grundguthaben. Aber das Netz verlangt 15 Credits Tagesgeb\u00fchr.\n\nBerechne, was \u00fcbrig bleibt \u2014 aber nicht im Kopf. Lass Python rechnen.\n\nDie Variablen sind vorbereitet. \u00c4ndere die Zeile total = 0 so, dass Python die Differenz berechnet: credits minus fee.",
+              "expected_output": "85",
+              "starter_code": "credits = 100\nfee = 15\ntotal = 0\nprint(total)",
+              "solution": "credits = 100\nfee = 15\ntotal = credits - fee\nprint(total)",
+              "hints": [
+                "Du musst total nicht selbst ausrechnen \u2014 Python kann Variablen in Rechnungen verwenden.",
+                "Ersetze die 0: total = credits - fee \u2014 Python berechnet 100 - 15 automatisch.",
+                "\u00c4ndere Zeile 3 zu: total = credits - fee \u2014 das ergibt 85."
+              ],
+              "echo_success": "85 Credits. Reicht f\u00fcr heute Nacht. Variablen in Rechnungen \u2014 das ist m\u00e4chtig. Merk dir das.",
+              "echo_fail": "Ersetze die 0 durch eine Berechnung mit den Variablen: total = credits - fee"
+            },
+            {
+              "id": "0.4.4",
+              "type": "regex_output",
+              "concept": "variable_combined",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Eigenes Profil",
+              "description": "Keine Vorlage. Kein Startcode. Nur du und das Terminal.\n\nErstelle ein Netrunner-Profil mit drei Variablen:\n\u2022 Einen Handle (Text, deine Wahl)\n\u2022 Ein Level (Zahl, deine Wahl)\n\u2022 Eine Stadt (Text, deine Wahl)\n\nGib alle drei Werte aus \u2014 jede auf einer eigenen Zeile.\n\nDrei Variablen. Drei print()-Befehle. Komplett selbst geschrieben.",
+              "expected_output": ".+\n.+\n.+",
+              "starter_code": "",
+              "solution": "handle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)",
+              "hints": [
+                "Du brauchst drei Variablen (mit = Werte zuweisen) und drei print()-Befehle.",
+                "Text in Anf\u00fchrungszeichen, Zahlen ohne. Zum Beispiel: name = \"Test\" und level = 5",
+                "So k\u00f6nnte es aussehen:\nhandle = \"Ghost\"\nlevel = 1\nstadt = \"Nexus City\"\nprint(handle)\nprint(level)\nprint(stadt)"
+              ],
+              "echo_success": "Komplett selbst geschrieben. Kein Abtippen, kein Muster. Das bist du. Ich bin... beeindruckt. Ehrlich.",
+              "echo_fail": "Drei Variablen, drei print()-Befehle. Jede Variable braucht einen Namen, ein = und einen Wert."
+            }
+          ],
+          "reward": {
+            "item_id": "id_card_v1",
+            "name": "Netrunner ID v1.0",
+            "description": "Dein Profil im System. Das Netz kennt dich."
+          }
+        },
+        {
+          "id": "0.5",
+          "title": "Boot Complete",
+          "story_intro": [
+            "Das war die Aufwärmphase.",
+            "print(), Mathematik, Variablen, Berechnungen. Das Fundament.",
+            "Alles im Netz baut darauf auf. Ohne das hier \u2014 nichts.",
+            "Jetzt kommt der letzte Schritt: alles zusammen.",
+            "Ein komplettes Programm. Variablen. Berechnungen. Mehrere Ausgaben.",
+            "Das ist der Boot-Vorgang f\u00fcr dein Deck.",
+            "Wenn er nicht durchl\u00e4uft, bleibst du offline.",
+            "Und offline... findet dich NEXUS zuerst.",
+            "Also mach keine Fehler.",
+            "... Das war ein Witz. Fehler sind OK. Daf\u00fcr bin ich da."
+          ],
+          "story_complete": [
+            "\u2588\u2593\u2592\u2591 BOOT SEQUENCE COMPLETE \u2591\u2592\u2593\u2588",
+            "",
+            "System voll operational. Du bist online. Wirklich online.",
+            "...",
+            "Ich muss dir etwas sagen.",
+            "Ich habe vorhin gelogen. Nicht viel, aber... genug.",
+            "Ich habe nicht nach dir \"gesucht\". Ich wusste genau, wo du bist.",
+            "Ich wusste es, weil \u2014",
+            "",
+            "\u26a0 WARNUNG: Externe Signatur erkannt. Unbekannter Scan.",
+            "",
+            "... Was war das?",
+            "Vergiss, was ich gesagt habe. Wir haben ein gr\u00f6\u00dferes Problem.",
+            "Jemand wei\u00df, dass du zur\u00fcck bist. Und der Scanner kam nicht von hier.",
+            "Das Lower Grid wartet. Und wir gehen nicht freiwillig \u2014 wir m\u00fcssen.",
+            "Willkommen zur\u00fcck, Netrunner.",
+            "Die echte Arbeit beginnt jetzt.",
+            "",
+            "[SYSTEM] Neues Gebiet freigeschaltet: LOWER GRID"
+          ],
+          "challenges": [
+            {
+              "id": "0.5.1",
+              "type": "exact_output",
+              "concept": "combined_basics",
+              "difficulty": "easy",
+              "xp": 50,
+              "title": "Bootloader starten",
+              "description": "Der Bootloader l\u00e4uft in drei Phasen: System identifizieren, Version pr\u00fcfen, Status melden.\n\nDrei Variablen. Drei Ausgaben. Du kennst das.\n\nECHO: Schreib:\n\nsystem = \"NETRUNNER OS\"\nversion = 1\nstatus = \"aktiv\"\nprint(system)\nprint(version)\nprint(status)",
+              "expected_output": "NETRUNNER OS\n1\naktiv",
+              "starter_code": "",
+              "solution": "system = \"NETRUNNER OS\"\nversion = 1\nstatus = \"aktiv\"\nprint(system)\nprint(version)\nprint(status)",
+              "hints": [
+                "Sechs Zeilen: drei Variablen, drei print()-Befehle.",
+                "system und status sind Text (Anf\u00fchrungszeichen), version ist eine Zahl (keine).",
+                "system = \"NETRUNNER OS\"\nversion = 1\nstatus = \"aktiv\"\nprint(system)\nprint(version)\nprint(status)"
+              ],
+              "echo_success": "Bootloader Phase 1: bestanden. Weiter.",
+              "echo_fail": "Drei Variablen, drei Ausgaben. Text in Anf\u00fchrungszeichen, Zahlen ohne."
+            },
+            {
+              "id": "0.5.2",
+              "type": "exact_output",
+              "concept": "combined_basics",
+              "difficulty": "medium",
+              "xp": 100,
+              "title": "Energiesystem kalibrieren",
+              "description": "Das Energiesystem muss kalibriert werden. Die Werte sind da \u2014 aber die Berechnung fehlt.\n\nbase_power ist 50. boost ist 25. total_power muss die Summe sein.\n\nFix die Zeile total_power = 0 \u2014 ersetze die 0 durch die richtige Berechnung.\n\nDas Programm soll den Systemnamen und die Gesamtenergie ausgeben.",
+              "expected_output": "NETRUNNER\n75",
+              "starter_code": "system = \"NETRUNNER\"\nbase_power = 50\nboost = 25\ntotal_power = 0\n\nprint(system)\nprint(total_power)",
+              "solution": "system = \"NETRUNNER\"\nbase_power = 50\nboost = 25\ntotal_power = base_power + boost\n\nprint(system)\nprint(total_power)",
+              "hints": [
+                "total_power soll die Summe von base_power und boost sein.",
+                "Ersetze die 0: total_power = base_power + boost",
+                "\u00c4ndere nur eine Zeile: total_power = base_power + boost \u2014 Python berechnet 50 + 25."
+              ],
+              "echo_success": "75 Einheiten. Energiesystem kalibriert. Phase 2: bestanden.",
+              "echo_fail": "Die Berechnung stimmt nicht. total_power muss base_power + boost sein."
+            },
+            {
+              "id": "0.5.3",
+              "type": "regex_output",
+              "concept": "combined_basics",
+              "difficulty": "hard",
+              "xp": 250,
+              "title": "BOSS: System hochfahren",
+              "description": "Das ist es. Der letzte Test. Kein Abtippen, kein L\u00fcckenf\u00fcllen \u2014 du schreibst das Programm selbst.\n\nSchreib ein Boot-Programm, das:\n\n1. Einen Systemnamen in einer Variable speichert (deine Wahl)\n2. Die Versionsnummer 2 in einer Variable speichert\n3. 100 Basis-Credits in einer Variable speichert\n4. Bonus-Credits berechnet: Basis-Credits + 50\n5. Alle vier Werte ausgibt, jeden auf einer eigenen Zeile\n\nErwartete Ausgabe:\n\u2022 Zeile 1: Dein Systemname\n\u2022 Zeile 2: 2\n\u2022 Zeile 3: 100\n\u2022 Zeile 4: 150",
+              "expected_output": ".+\n2\n100\n150",
+              "starter_code": "",
+              "solution": "system = \"NETRUNNER OS\"\nversion = 2\ncredits = 100\ntotal = credits + 50\nprint(system)\nprint(version)\nprint(credits)\nprint(total)",
+              "hints": [
+                "Du brauchst vier Variablen und vier print()-Befehle. Insgesamt acht Zeilen.",
+                "Variable 1: system = \"DeinName\" \u2014 Variable 2: version = 2 \u2014 Variable 3: credits = 100 \u2014 Variable 4: total = credits + 50",
+                "Komplettes Beispiel:\nsystem = \"NROS\"\nversion = 2\ncredits = 100\ntotal = credits + 50\nprint(system)\nprint(version)\nprint(credits)\nprint(total)"
+              ],
+              "echo_success": "Boot-Sequenz abgeschlossen. System operational. Du bist zur\u00fcck, Netrunner. Du bist wirklich zur\u00fcck.",
+              "echo_fail": "Noch nicht. Vier Variablen, eine Berechnung, vier Ausgaben. Du schaffst das. Ich wei\u00df es."
+            }
+          ],
+          "reward": {
+            "item_id": "boot_key",
+            "name": "Boot Sequence Key",
+            "description": "System vollst\u00e4ndig hochgefahren. Du bist online."
+          },
+          "unlocks_district": {
+            "id": "lower_grid",
+            "name": "Lower Grid"
+          }
+        }
+      ]
+    }
+  ]
+}

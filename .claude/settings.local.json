@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(py -3:*)",
+      "Bash(where:*)",
+      "Bash(dir:*)",
+      "Bash(node validate_story.js:*)",
+      "Bash(del \"C:\\\\Temp\\\\Python\\\\Python\\\\Python\\\\validate_story.js\")",
+      "Bash(npx vite build)",
+      "Bash(npm install:*)",
+      "Bash(ls -la \"C:\\\\Temp\\\\Python\\\\Python\\\\Python\\\\netrunner\\\\backend\\\\deploy\"\" 2>&1 || echo \"deploy directory does not exist \")",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

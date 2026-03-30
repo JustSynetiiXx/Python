@@ -1,0 +1,31 @@
+[Unit]
+Description=NETRUNNER Backend
+After=network.target
+
+[Service]
+Type=simple
+User=netrunner
+Group=netrunner
+WorkingDirectory=/opt/netrunner/backend
+
+# Environment — set your values here
+Environment=NETRUNNER_PASSWORD=DEIN_PASSWORT_HIER
+Environment=NETRUNNER_JWT_SECRET=DEIN_JWT_SECRET_HIER
+
+# Python venv
+ExecStart=/opt/netrunner/venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=netrunner
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/netrunner/backend
+
+[Install]
+WantedBy=multi-user.target
